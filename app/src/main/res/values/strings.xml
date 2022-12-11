@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">LeChef</string>
+    <string name="title_activity_home_page">HomePage</string>
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="title_activity_root_nav_graph">RootNavGraph</string>
+    <string name="title_activity_login_screen">loginScreen</string>
+    <string name="title_activity_sign_up_screen">signUpScreen</string>
+    <string name="title_activity_my_recipe_screen">MyRecipeScreen</string>
+    <string name="title_activity_liked_recipe_screen">LikedRecipeScreen</string>
+    <string name="title_activity_profile_screen">ProfileScreen</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>

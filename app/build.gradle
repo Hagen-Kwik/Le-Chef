@@ -60,4 +60,11 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+    implementation "androidx.navigation:navigation-compose:$rootProject.composeNavigationVersion"
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.google.dagger:hilt-android:2.44'
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    implementation 'com.squareup.picasso3:picasso:3.0.0-alpha02'
+
 }
