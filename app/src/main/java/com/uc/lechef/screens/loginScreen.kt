@@ -60,12 +60,11 @@ fun LoginPage(onClick: () -> Unit,
         Spacer(modifier = Modifier.height(20.dp))
         Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
             Button(
-                onClick = { },
+                onClick = { onClick() },
                 shape = RoundedCornerShape(50.dp),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
-                    .clickable {onClick()}
 
             ) {
                 Text(text = "Login")

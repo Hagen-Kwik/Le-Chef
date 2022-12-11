@@ -4,10 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.uc.lechef.screens.ViewModel.signUpScreenViewModel
 import com.uc.lechef.screens.home.HomeScreen
 
 @Composable
-fun RootNavigationGraph(navController: NavHostController) {
+fun RootNavigationGraph(navController: NavHostController, viewModel: signUpScreenViewModel) {
     NavHost(
         navController = navController,
         route = Graph.ROOT,
