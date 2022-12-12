@@ -69,6 +69,8 @@ fun SignUpPage(onAlreadyHaveAccountClick: () -> Unit,
     }
     Column(
         modifier = Modifier.padding(20.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val email = remember { mutableStateOf(TextFieldValue()) }
         val username = remember { mutableStateOf(TextFieldValue()) }

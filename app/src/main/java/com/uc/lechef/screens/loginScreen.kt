@@ -76,7 +76,7 @@ fun LoginPage(onClick: () -> Unit,
         val username = remember { mutableStateOf(TextFieldValue()) }
         val password = remember { mutableStateOf(TextFieldValue()) }
 
-        Text(text = "Login", style = TextStyle(fontSize = 40.sp),
+        Text(text = "Log in", style = TextStyle(fontSize = 25.sp),
             textAlign = TextAlign.Start
         )
 
