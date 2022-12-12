@@ -8,7 +8,7 @@ import com.uc.lechef.screens.ViewModel.signUpScreenViewModel
 import com.uc.lechef.screens.home.HomeScreen
 
 @Composable
-fun RootNavigationGraph(navController: NavHostController, viewModel: signUpScreenViewModel) {
+fun RootNavigationGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
         route = Graph.ROOT,

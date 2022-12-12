@@ -11,8 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.uc.lechef.graphs.HomeNavGraph
-import com.uc.lechef.Navigation.NavigationItem
-
+import com.uc.lechef.graphs.botbar
 
 
 @Composable
@@ -41,12 +40,12 @@ fun HomeScreen(navController: NavHostController = rememberNavController()){
 }
 
 @Composable
-fun NavItem(item: NavigationItem, isSelected: Boolean, onCLick:()-> Unit) {
+fun NavItem(item: botbar, isSelected: Boolean, onCLick:()-> Unit) {
     val iconId = if(isSelected) item.Selectedicon else item.unSelectedIcon
     val iconAlpha = if(isSelected) 1f else 0.5f
     IconButton(onClick = {onCLick}){
         Icon(painter = painterResource(id = iconId),
-            contentDescription = item.title,
+            contentDescription = item.route,
             tint = MaterialTheme.colors.onBackground.copy(alpha = iconAlpha))
     }
 }
@@ -58,16 +57,16 @@ fun BottomNav() {
     BottomAppBar(
         backgroundColor = MaterialTheme.colors.surface,
         cutoutShape = CircleShape,
-        contentPadding = PaddingValues(horizontal = 50.dp),
+        contentPadding = PaddingValues(horizontal = 25.dp),
         elevation = 2.dp
     ) {
-        NavigationItem.Home.let { Home ->
+        botbar.Home.let { Home ->
             NavItem(item = Home, isSelected = Home.id == currentSelectedScreenId) {
                 currentSelectedScreenId = Home.id
             }
         }
 
-        NavigationItem.MyRecipes.let { MyRecipes ->
+        botbar.MyRecipes.let { MyRecipes ->
             NavItem(item = MyRecipes, isSelected = MyRecipes.id == currentSelectedScreenId) {
                 currentSelectedScreenId = MyRecipes.id
             }
@@ -75,13 +74,13 @@ fun BottomNav() {
 
         Spacer(Modifier.weight(1f))
 
-        NavigationItem.LikedRecipes.let { LikedRecipes ->
+        botbar.LikedRecipes.let { LikedRecipes ->
             NavItem(item = LikedRecipes, isSelected = LikedRecipes.id == currentSelectedScreenId) {
                 currentSelectedScreenId = LikedRecipes.id
             }
         }
 
-        NavigationItem.Profile.let { Profile ->
+        botbar.Profile.let { Profile ->
             NavItem(item = Profile, isSelected = Profile.id == currentSelectedScreenId) {
                 currentSelectedScreenId = Profile.id
             }

@@ -29,7 +29,7 @@ import com.uc.lechef.screens.ViewModel.signUpScreenViewModel
 @Composable
 fun SignUpPage(onAlreadyHaveAccountClick: () -> Unit,
                onSignedUpClick: () -> Unit,
-               viewModel: signUpScreenViewModel
+//               viewModel: signUpScreenViewModel
 ) {
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -78,9 +78,9 @@ fun SignUpPage(onAlreadyHaveAccountClick: () -> Unit,
         Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
             Button(
                 onClick = {
-                    viewModel.registerUser(username.value.toString(),
-                    password.value.text,
-                    email.value.toString())
+//                    viewModel.registerUser(username.value.toString(),
+//                    password.value.text,
+//                    email.value.toString())
 
                     onSignedUpClick()},
                 shape = RoundedCornerShape(50.dp),

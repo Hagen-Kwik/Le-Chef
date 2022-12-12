@@ -14,17 +14,18 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private lateinit var viewModel: signUpScreenViewModel
+//    private lateinit var viewModel: signUpScreenViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(signUpScreenViewModel::class.java)
+//        viewModel = ViewModelProvider(this).get(signUpScreenViewModel::class.java)
 
         setContent {
             LeChefTheme {
-                RootNavigationGraph(navController = rememberNavController(), viewModel)
+//                RootNavigationGraph(navController = rememberNavController(), viewModel)
+                RootNavigationGraph(navController = rememberNavController())
             }
         }
 
