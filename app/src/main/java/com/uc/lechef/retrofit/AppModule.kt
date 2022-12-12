@@ -15,7 +15,9 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun getRetrofitServiceInstance(retrofit: Retrofit): EndPointApi{
+    fun provideUserAPI(
+        retrofit: Retrofit
+    ): EndPointApi{
         return retrofit.create(EndPointApi::class.java)
     }
 
