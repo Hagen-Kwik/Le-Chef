@@ -1,4 +1,4 @@
-package com.uc.lechef.screens.home.ui.theme
+package com.uc.lechef.screens.botnavbar_pages.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

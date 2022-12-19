@@ -23,11 +23,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import com.uc.lechef.Navigation.NavigationEnum
 import com.uc.lechef.R
+import com.uc.lechef.screens.ViewModel.loginScreenViewModel
+import dagger.hilt.android.internal.Contexts.getApplication
 
 @Composable
-fun LoginPage(onClick: () -> Unit,
-              onSignUpClick: () -> Unit) {
+fun LoginPage (navController: NavController,
+//               viewModel: loginScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+               ) {
+
+
     Box(modifier = Modifier.fillMaxSize()) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -45,7 +53,9 @@ fun LoginPage(onClick: () -> Unit,
                 text = "Sign Up",
                 modifier = Modifier
                     .padding(0.dp, 20.dp, 20.dp, 20.dp)
-                    .clickable { onSignUpClick() },
+                    .clickable {
+                        navController.navigate(NavigationEnum.signUpScreen.name)
+                    },
                 style = TextStyle(
                     textDecoration = TextDecoration.Underline,
                     color = androidx.compose.ui.graphics.Color.Blue
@@ -56,6 +66,8 @@ fun LoginPage(onClick: () -> Unit,
         }
     }
 
+
+
     Column(
         modifier = Modifier.padding(20.dp),
         verticalArrangement = Arrangement.Center,
@@ -65,7 +77,7 @@ fun LoginPage(onClick: () -> Unit,
         Image(painter = painterResource(id = R.drawable.logo), contentDescription = "Logo",
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .padding(100.dp,30.dp,100.dp, 30.dp)
+                .padding(100.dp, 30.dp, 100.dp, 30.dp)
         )
         Text(text = "Le Chéf",
             style = TextStyle(fontSize = 40.sp),
@@ -101,7 +113,9 @@ fun LoginPage(onClick: () -> Unit,
 
         Spacer(modifier = Modifier.height(20.dp))
             Button(
-                onClick = { onClick() },
+                onClick = {
+
+                },
                 shape = RoundedCornerShape(50.dp),
                 modifier = Modifier
                     .fillMaxWidth()
