@@ -35,7 +35,7 @@ fun SplashScreen(navController: NavController) {
                     OvershootInterpolator(4f).getInterpolation(it)
                 }))
         // Customize the delay time
-        delay(3000L)
+//        delay(1000L)
         navController.popBackStack()
         navController.navigate(NavigationEnum.loginScreen.name)
     }

@@ -7,15 +7,18 @@ import androidx.navigation.compose.rememberNavController
 import com.uc.lechef.screens.LoginPage
 import com.uc.lechef.screens.SignUpPage
 import com.uc.lechef.screens.SplashScreen
+import com.uc.lechef.screens.ViewModel.loginScreenViewModel
 import com.uc.lechef.screens.ViewModel.signUpScreenViewModel
+import com.uc.lechef.screens.botnavbar_pages.*
 
 @Composable
-fun AppNavigation(viewModel: signUpScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
+fun AppNavigation(signUpviewModel: signUpScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
+                  LoginviewModel: loginScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
     val navController = rememberNavController()
     NavHost(navController, startDestination = NavigationEnum.SplashScreenActivity.name){
 
         composable(NavigationEnum.loginScreen.name){
-            LoginPage(navController)
+            LoginPage(navController, LoginviewModel)
         }
 
         composable(NavigationEnum.SplashScreenActivity.name){
@@ -23,7 +26,29 @@ fun AppNavigation(viewModel: signUpScreenViewModel = androidx.lifecycle.viewmode
         }
 
         composable(NavigationEnum.signUpScreen.name){
-            SignUpPage(navController, viewModel)
+            SignUpPage(navController, signUpviewModel)
         }
+
+        composable(NavigationEnum.HomeScreen.name){
+            HomeScreen(navController)
+        }
+
+        composable(NavigationEnum.LikeRecipeScreen.name){
+            LikedRecipesScreen(navController)
+        }
+
+        composable(NavigationEnum.MyRecipeScreen.name){
+            MyRecipesScreen(navController)
+        }
+
+        composable(NavigationEnum.ProfileScreen.name){
+            ProfileScreen(navController)
+        }
+
+        composable(NavigationEnum.SearchByIngridientsScreen.name){
+//            HomeScreen(navController)
+        }
+
+
     }
 }

@@ -3,6 +3,7 @@ package com.uc.lechef.screens
 
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -10,6 +11,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -18,9 +20,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration.Companion.Underline
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.uc.lechef.Navigation.NavigationEnum
 import com.uc.lechef.R
 import com.uc.lechef.screens.ViewModel.signUpScreenViewModel
 
@@ -28,33 +32,35 @@ import com.uc.lechef.screens.ViewModel.signUpScreenViewModel
 @Composable
 fun SignUpPage (navController: NavController, viewModel: signUpScreenViewModel
 ) {
-//    Box(modifier = Modifier.fillMaxSize()) {
-//        Row(
-//            verticalAlignment = Alignment.CenterVertically,
-//            modifier = Modifier
-//                .align(Alignment.BottomCenter)
-//                .padding(0.dp)
-//
-//        ) {
-//            Text(text = "Already Have an Account?",
-//                modifier = Modifier
-//                    .padding(20.dp,20.dp,10.dp,20.dp)
-//
-//            )
-//            Text(
-//                text = "Log In",
-//                modifier = Modifier
-//                    .padding(0.dp, 20.dp, 20.dp, 20.dp)
-//                    .clickable { onAlreadyHaveAccountClick() },
-//                style = TextStyle(
-//                    textDecoration = Underline,
-//                    color = androidx.compose.ui.graphics.Color.Blue
-//                    )
-//
-//
-//            )
-//        }
-//    }
+    Box(modifier = Modifier.fillMaxSize()) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(0.dp)
+
+        ) {
+            Text(text = "Already Have an Account?",
+                modifier = Modifier
+                    .padding(20.dp,20.dp,10.dp,20.dp)
+
+            )
+            Text(
+                text = "Log In",
+                modifier = Modifier
+                    .padding(0.dp, 20.dp, 20.dp, 20.dp)
+                .clickable {
+                navController.navigate(NavigationEnum.loginScreen.name)
+            },
+                style = TextStyle(
+                    textDecoration = Underline,
+                    color = androidx.compose.ui.graphics.Color.Blue
+                    )
+
+
+            )
+        }
+    }
     Column(
         modifier = Modifier.padding(20.dp),
         verticalArrangement = Arrangement.Center,

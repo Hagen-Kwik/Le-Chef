@@ -1,4 +1,4 @@
-package com.uc.lechef
+package com.uc.lechef.Models
 
 data class User(
     val CreatedAt: String,

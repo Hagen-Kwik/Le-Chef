@@ -1,6 +1,7 @@
 package com.uc.lechef.screens
 
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -31,10 +32,7 @@ import com.uc.lechef.screens.ViewModel.loginScreenViewModel
 import dagger.hilt.android.internal.Contexts.getApplication
 
 @Composable
-fun LoginPage (navController: NavController,
-//               viewModel: loginScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
-               ) {
-
+fun LoginPage (navController: NavController, viewModel: loginScreenViewModel) {
 
     Box(modifier = Modifier.fillMaxSize()) {
         Row(
@@ -114,6 +112,9 @@ fun LoginPage (navController: NavController,
         Spacer(modifier = Modifier.height(20.dp))
             Button(
                 onClick = {
+//                        viewModel.()
+//                          for now directly go t o home
+                    navController.navigate(NavigationEnum.HomeScreen.name)
 
                 },
                 shape = RoundedCornerShape(50.dp),
