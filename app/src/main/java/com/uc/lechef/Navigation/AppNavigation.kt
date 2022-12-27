@@ -29,26 +29,21 @@ fun AppNavigation(signUpviewModel: signUpScreenViewModel = androidx.lifecycle.vi
             SignUpPage(navController, signUpviewModel)
         }
 
-        composable(NavigationEnum.HomeScreen.name){
-            HomeScreen(navController)
-        }
-
-        composable(NavigationEnum.LikeRecipeScreen.name){
-            LikedRecipesScreen(navController)
-        }
-
-        composable(NavigationEnum.MyRecipeScreen.name){
-            MyRecipesScreen(navController)
-        }
-
-        composable(NavigationEnum.ProfileScreen.name){
-            ProfileScreen(navController)
+        composable(NavigationEnum.botnavbar.name){
+            botnavbar(navController)
         }
 
         composable(NavigationEnum.SearchByIngridientsScreen.name){
 //            HomeScreen(navController)
         }
 
+        composable(NavigationEnum.uploadRecipeOneScreen.name){
+            uploadRecipeOneScreen(navController)
+        }
+
+        composable(NavigationEnum.uploadRecipeOneScreen.name){
+            uploadRecipeTwoScreen(navController)
+        }
 
     }
 }

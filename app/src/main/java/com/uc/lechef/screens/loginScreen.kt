@@ -114,7 +114,7 @@ fun LoginPage (navController: NavController, viewModel: loginScreenViewModel) {
                 onClick = {
 //                        viewModel.()
 //                          for now directly go t o home
-                    navController.navigate(NavigationEnum.HomeScreen.name)
+                    navController.navigate(NavigationEnum.botnavbar.name)
 
                 },
                 shape = RoundedCornerShape(50.dp),

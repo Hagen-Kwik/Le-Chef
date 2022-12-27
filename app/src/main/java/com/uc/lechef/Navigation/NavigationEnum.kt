@@ -4,9 +4,8 @@ enum class NavigationEnum {
     loginScreen,
     signUpScreen,
     SplashScreenActivity,
-    HomeScreen,
-    LikeRecipeScreen,
-    MyRecipeScreen,
-    ProfileScreen,
+    botnavbar,
+    uploadRecipeOneScreen,
+    uploadRecipeTwoScreen,
     SearchByIngridientsScreen
 }

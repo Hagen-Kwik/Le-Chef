@@ -66,9 +66,9 @@ fun SignUpPage (navController: NavController, viewModel: signUpScreenViewModel
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = CenterHorizontally
     ) {
-        val email = remember { mutableStateOf(TextFieldValue()) }
-        val username = remember { mutableStateOf(TextFieldValue()) }
-        val password = remember { mutableStateOf(TextFieldValue()) }
+        val email = remember { mutableStateOf("") }
+        val username = remember { mutableStateOf("") }
+        val password = remember { mutableStateOf("") }
 
 
         Image(painter = painterResource(id = R.drawable.logo), contentDescription = "Logo",
@@ -123,10 +123,9 @@ fun SignUpPage (navController: NavController, viewModel: signUpScreenViewModel
 
         Button(
             onClick = {
-                  viewModel.registerUser(username.value.toString(),
-                  password.value.text,
-                  email.value.toString())
-                      Log.d("HERE", "MASUK")},
+                  viewModel.registerUser(username.value,
+                  password.value,
+                  email.value) },
             shape = RoundedCornerShape(50.dp),
             modifier = Modifier
                 .fillMaxWidth()

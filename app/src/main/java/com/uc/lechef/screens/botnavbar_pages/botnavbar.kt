@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.uc.lechef.Navigation.NavigationEnum
@@ -18,7 +19,6 @@ import com.uc.lechef.R
 @Composable
 fun botnavbar(navController: NavHostController) {
     Scaffold(scaffoldState = rememberScaffoldState(),
-    backgroundColor = MaterialTheme.colors.background,
     floatingActionButtonPosition = FabPosition.Center,
     isFloatingActionButtonDocked = true,
     floatingActionButton = {
@@ -32,16 +32,28 @@ fun botnavbar(navController: NavHostController) {
             Text(text = "+")
         }
     },
+        content = {
+            if (currentSelectedScreenId.value == 0) HomeScreen(navController)
+            else if (currentSelectedScreenId.value == 1) MyRecipesScreen(navController)
+            else if (currentSelectedScreenId.value == 2) LikedRecipesScreen(navController)
+            else if (currentSelectedScreenId.value == 3) ProfileScreen(navController)
+
+        },
+
     bottomBar = {
-        BottomNav(navController)
+        BottomNav()
     }
-    ){}
+    )
 }
+
+
+
+
 var currentSelectedScreenId = mutableStateOf(0)
 
 
 @Composable
-fun BottomNav(navController: NavHostController) {
+fun BottomNav() {
     BottomAppBar(
         backgroundColor = MaterialTheme.colors.surface,
         cutoutShape = CircleShape,
@@ -50,7 +62,6 @@ fun BottomNav(navController: NavHostController) {
     ) {
 
         BottomNavigationItem(selected = true, onClick = {
-            navController.navigate(NavigationEnum.HomeScreen.name)
             currentSelectedScreenId.value = NavigationItem.Home.id
         },
             icon = {
@@ -64,8 +75,6 @@ fun BottomNav(navController: NavHostController) {
 
         BottomNavigationItem(selected = true, onClick = {
             currentSelectedScreenId.value = NavigationItem.MyRecipes.id
-            navController.navigate(NavigationEnum.MyRecipeScreen.name)
-
         },
             icon = {
                 Icon(painter = painterResource(id = NavigationItem.MyRecipes.Selectedicon),
@@ -82,7 +91,6 @@ fun BottomNav(navController: NavHostController) {
 
         BottomNavigationItem(selected = true, onClick = {
             currentSelectedScreenId.value = NavigationItem.LikedRecipes.id
-            navController.navigate(NavigationEnum.LikeRecipeScreen.name)
 
         },
             icon = {
@@ -96,7 +104,6 @@ fun BottomNav(navController: NavHostController) {
 
         BottomNavigationItem(selected = true, onClick = {
             currentSelectedScreenId.value = NavigationItem.Profile.id
-            navController.navigate(NavigationEnum.ProfileScreen.name)
         },
             icon = {
                 Icon(painter = painterResource(id = NavigationItem.Profile.Selectedicon),

@@ -1,13 +1,25 @@
 package com.uc.lechef.screens.botnavbar_pages
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun ProfileScreen(navController: NavHostController = rememberNavController()) {
-    Text(text = "My Profile Page!")
-    botnavbar(navController)
+    val ScrollState = rememberScrollState()
 
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(ScrollState)
+    )
+    {
+        Text(text = "My Profile Page!")
+    }
 }
