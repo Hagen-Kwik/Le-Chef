@@ -33,10 +33,6 @@ fun AppNavigation(signUpviewModel: signUpScreenViewModel = androidx.lifecycle.vi
             botnavbar(navController)
         }
 
-        composable(NavigationEnum.SearchByIngridientsScreen.name){
-//            HomeScreen(navController)
-        }
-
         composable(NavigationEnum.uploadRecipeOneScreen.name){
             uploadRecipeOneScreen(navController)
         }
@@ -44,6 +40,19 @@ fun AppNavigation(signUpviewModel: signUpScreenViewModel = androidx.lifecycle.vi
         composable(NavigationEnum.uploadRecipeOneScreen.name){
             uploadRecipeTwoScreen(navController)
         }
+
+        composable(NavigationEnum.searchByIngredientsScreen.name){
+            searchByIngredientsScreen(navController)
+        }
+
+        composable(NavigationEnum.searchRecipesScreen.name){
+            searchRecipesScreen(navController)
+        }
+
+        composable(NavigationEnum.DetailedRecipesScreen.name){
+            DetailedRecipesScreen(navController)
+        }
+
 
     }
 }

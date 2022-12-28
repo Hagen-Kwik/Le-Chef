@@ -14,8 +14,8 @@ class signUpScreenViewModel @Inject constructor(private val repository: userRepo
 ): ViewModel() {
 
      fun registerUser(username: String, password: String, email: String) {
+//         Log.d("HERE", "UNAME " + username + "  PASs  " + password + "  EMAMMAL " + email)
         viewModelScope.launch {
-
             repository.RegisterForNewUser(
                 User("",
                 "",
@@ -27,12 +27,13 @@ class signUpScreenViewModel @Inject constructor(private val repository: userRepo
                 password,
                 "",
                 "")
-            ).let { response ->
-                if (response.isSuccessful) {
-                    Log.e("POST Data", "SUCCESS")
-                } else {
-                    Log.e("POST Data", "Failed")
-                }
+            ).let { StatusLine ->
+                Log.d("RESPONSE", StatusLine.code.toString())
+//                if (response.isSuccessful) {
+//                    Log.e("POST Data", "SUCCESS")
+//                } else {
+//                    Log.e("POST Data", "Failed")
+//                }
             }
         }
     }

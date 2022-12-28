@@ -2,13 +2,19 @@ package com.uc.lechef.screens.botnavbar_pages
 
 import android.util.Log
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -23,13 +29,21 @@ fun botnavbar(navController: NavHostController) {
     isFloatingActionButtonDocked = true,
     floatingActionButton = {
         FloatingActionButton(onClick = { /*TODO*/ },
-            elevation = FloatingActionButtonDefaults.elevation(2.dp, 3.dp)
+            elevation = FloatingActionButtonDefaults.elevation(2.dp, 3.dp),
+            backgroundColor = Color(249,162,46)
         ) {
 //                Icon(
 //                    painter = painterResource(id = ),
 //                    contentDescription = "fab",
 //                )
-            Text(text = "+")
+            Image(painter = painterResource(id = R.drawable.logo_white),
+                contentDescription = "Logo",
+
+                modifier = Modifier.clickable{
+                    navController.navigate(NavigationEnum.searchByIngredientsScreen.name)
+                }
+                    .height(30.dp)
+            )
         }
     },
         content = {

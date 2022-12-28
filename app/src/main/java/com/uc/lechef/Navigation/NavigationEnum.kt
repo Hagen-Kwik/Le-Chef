@@ -7,5 +7,7 @@ enum class NavigationEnum {
     botnavbar,
     uploadRecipeOneScreen,
     uploadRecipeTwoScreen,
-    SearchByIngridientsScreen
+    searchByIngredientsScreen,
+    searchRecipesScreen,
+    DetailedRecipesScreen,
 }

@@ -2,6 +2,7 @@ package com.uc.lechef.retrofit
 
 import com.google.gson.JsonObject
 import com.uc.lechef.Models.User
+import okhttp3.internal.http.StatusLine
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -22,7 +23,11 @@ interface EndPointApi {
     @POST("/users")
     suspend fun postUserData(
         @Body user: User
-    ): retrofit2.Response<JsonObject>
+    ): StatusLine
 
+//    @POST("/users")
+//    suspend fun postUserData(
+//        @Body user: User
+//    ): retrofit2.Response<JsonObject>
 
 }
