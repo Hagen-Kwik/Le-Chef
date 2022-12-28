@@ -1,15 +1,19 @@
 package com.uc.lechef.screens.botnavbar_pages
 
-import androidx.compose.foundation.*
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Search
-import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,12 +25,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.uc.lechef.Navigation.NavigationEnum
+import com.uc.lechef.screens.botnavbar_pages.ui.theme.LeChefTheme
 
 @OptIn(ExperimentalFoundationApi::class)
-@Preview
+@Preview(showBackground = true)
 @Composable
-fun LikedRecipesScreen(navController: NavHostController = rememberNavController()) {
+fun searchByIngredientsScreen(navController: NavHostController = rememberNavController()) {
+
 
     val ScrollState = rememberScrollState()
     var searchbar = remember { mutableStateOf("") }
@@ -34,10 +39,24 @@ fun LikedRecipesScreen(navController: NavHostController = rememberNavController(
     LazyColumn() {
         stickyHeader {
 
-            Text(text = "Liked Recipes",
-                modifier = Modifier.padding(20.dp),
-                color = Color(249, 162, 46)
-            )
+            Row(horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(10.dp)
+            ){
+                Icon(
+                    imageVector = Icons.Rounded.ArrowBack,
+                    contentDescription = null,
+                    tint = Color.Black,
+                    modifier = Modifier.clickable {
+                        navController.popBackStack()
+                    }
+                )
+
+                Text(text = "Find Recipes")
+
+                Spacer(modifier = Modifier.width(0.dp))
+            }
 
             Row(
                 modifier = Modifier
@@ -84,8 +103,38 @@ fun LikedRecipesScreen(navController: NavHostController = rememberNavController(
                 )
             }
         }
+//    give items here
     }
 
-//    give items here
+    Row() {
+        // see items
+        Column() {
+
+        }
+
+        // items in pot
+        Column() {
+
+        }
+
+        // search
+        Column() {
+            Icon(imageVector = Icons.Outlined.Search, contentDescription = null,
+                modifier = Modifier
+                    .scale(1.5f)
+                    .clickable {
+//                searchbar.value =
+                    }
+            )
+        }
+    }
 
 }
+
+
+
+
+
+
+
+
