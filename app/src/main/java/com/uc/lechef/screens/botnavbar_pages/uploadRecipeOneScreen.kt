@@ -5,6 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
@@ -23,12 +25,17 @@ import com.uc.lechef.screens.botnavbar_pages.ui.theme.LeChefTheme
 @Composable
 fun uploadRecipeOneScreen(navController: NavHostController = rememberNavController()) {
 
+    val ScrollState = rememberScrollState()
 
-    Column(modifier = Modifier.fillMaxSize()
+    Column(modifier = Modifier
+        .fillMaxSize()
         .padding(10.dp)
+        .verticalScroll(ScrollState)
     ) {
         
-        Row(horizontalArrangement = Arrangement.SpaceEvenly,
+        Row(horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier
+            .fillMaxSize()
         ){
             Icon(
                 imageVector = Icons.Rounded.ArrowBack,
@@ -40,54 +47,66 @@ fun uploadRecipeOneScreen(navController: NavHostController = rememberNavControll
             )
 
             Text(text = "Upload Your Recipe")
-            Text(text = "0")
 
+            Spacer(modifier = Modifier.width(0.dp))
         }
         
         Text(text = "Name")
         TextField(value = "", onValueChange = {},
             placeholder = { Text("Name of recipe...") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(0.dp, 5.dp)
         )
 
         Text(text = "Description of Food")
         TextField(value = "", onValueChange = {},
             placeholder = { Text("The food's Description of your recipe...") },
-            modifier = Modifier.fillMaxWidth()
-            .padding(0.dp, 5.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(0.dp, 5.dp)
+                .height(100.dp)
 
         )
 
         Text(text = "Ingredients")
+//kasih drop down kalo ada
         TextField(value = "", onValueChange = {},
             placeholder = { Text("Ingredients of your recipe...") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(0.dp, 5.dp)
+                .height(100.dp)
 
         )
 
         Text(text = "Time Needed")
 //        time
         TextField(value = "", onValueChange = {},
-            placeholder = { Text("Ingredients of your recipe...") },
-            modifier = Modifier.fillMaxWidth()
+            placeholder = { Text("Time Taken e.g (2 hours)") },
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(0.dp, 5.dp)
+
 
         )
 
         Text(text = "Instructions")
         TextField(value = "", onValueChange = {},
             placeholder = { Text("Cooking Instructions") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(0.dp, 5.dp)
+                .height(300.dp)
+
 
         )
         
         Button(onClick = {
             navController.navigate(NavigationEnum.uploadRecipeTwoScreen.name)
         },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(backgroundColor =  Color(249,162,46))
         ) {
             Text(text = "Next")
         }

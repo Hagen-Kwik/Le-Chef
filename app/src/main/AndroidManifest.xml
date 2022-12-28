@@ -18,6 +18,33 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".DetailedRecipesScreen"
+            android:exported="false"
+            android:label="@string/title_activity_detailed_recipes_screen"
+            android:theme="@style/Theme.LeChef">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".searchRecipesScreen"
+            android:exported="false"
+            android:label="@string/title_activity_search_recipes_screen"
+            android:theme="@style/Theme.LeChef">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".searchByIngredientsScreen"
+            android:exported="false"
+            android:label="@string/title_activity_search_by_ingredients_screen"
+            android:theme="@style/Theme.LeChef">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".uploadRecipeTwoScreen"
             android:exported="false"
             android:label="@string/title_activity_upload_recipe_two_screen"

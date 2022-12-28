@@ -11,4 +11,7 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_upload_recipe_one_screen">uploadRecipeOneScreen</string>
     <string name="title_activity_upload_recipe_two_screen">uploadRecipeTwoScreen</string>
+    <string name="title_activity_search_by_ingredients_screen">searchByIngredientsScreen</string>
+    <string name="title_activity_search_recipes_screen">searchRecipesScreen</string>
+    <string name="title_activity_detailed_recipes_screen">DetailedRecipesScreen</string>
 </resources>
