@@ -105,8 +105,6 @@ fun DetailedRecipesScreen(navController: NavHostController = rememberNavControll
                                 imageVector = Icons.Rounded.FavoriteBorder,
                                 contentDescription = null,
                                 tint = Color(254,114,76),
-
-
                             )
                         }
                     }

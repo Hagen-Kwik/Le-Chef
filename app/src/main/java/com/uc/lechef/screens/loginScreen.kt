@@ -9,31 +9,60 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import com.uc.lechef.Navigation.NavigationEnum
 import com.uc.lechef.R
+import com.uc.lechef.helper.StoreUserCookie
+import com.uc.lechef.helper.StoreUserID
 import com.uc.lechef.screens.ViewModel.loginScreenViewModel
-import dagger.hilt.android.internal.Contexts.getApplication
+import com.uc.lechef.screens.ViewModel.sharedAllScreenViewModel
 
 @Composable
-fun LoginPage (navController: NavController, viewModel: loginScreenViewModel) {
+fun LoginPage (navController: NavController, viewModel: loginScreenViewModel, sharedViewModel: sharedAllScreenViewModel) {
+
+    val context = LocalContext.current
+    val USERID =  StoreUserID(context)
+    val COOKIE = StoreUserCookie(context)
+
+    LaunchedEffect(key1 = viewModel.logged.collectAsState().value){
+        if (viewModel.logged.value) {
+            viewModel.mainRecipeAtTopHomeHeader.value.let {
+                if (it != null) {
+                    sharedViewModel.addRecipeofTheDay(it)
+                }
+            }
+
+            viewModel.IngredientsAtHome.value.let {
+                if (it != null) {
+                    sharedViewModel.addBahanAll(it)
+                }
+            }
+
+            viewModel.RecipesAtHome.value.let {
+                if (it != null) {
+                    sharedViewModel.addResepAll(it)
+                }
+            }
+
+            USERID.setUserId(viewModel.userid)
+            COOKIE.setCookie(viewModel.token)
+
+            navController.navigate(NavigationEnum.botnavbar.name)
+        }
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Row(
@@ -84,8 +113,8 @@ fun LoginPage (navController: NavController, viewModel: loginScreenViewModel) {
         )
 
         Spacer(modifier = Modifier.height(40.dp))
-        val username = remember { mutableStateOf(TextFieldValue()) }
-        val password = remember { mutableStateOf(TextFieldValue()) }
+        val username = remember { mutableStateOf("") }
+        val password = remember { mutableStateOf("") }
 
         Text(text = "Log in", style = TextStyle(fontSize = 25.sp),
             textAlign = TextAlign.Start
@@ -93,7 +122,7 @@ fun LoginPage (navController: NavController, viewModel: loginScreenViewModel) {
 
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
-            label = { Text(text = "Username") },
+            label = { Text(text = "Email") },
             value = username.value,
             onValueChange = { username.value = it },
         modifier = Modifier
@@ -113,9 +142,8 @@ fun LoginPage (navController: NavController, viewModel: loginScreenViewModel) {
         Spacer(modifier = Modifier.height(20.dp))
             Button(
                 onClick = {
-//                        viewModel.()
-//                          for now directly go t o home
-                    navController.navigate(NavigationEnum.botnavbar.name)
+                    viewModel.login(username.value,password.value)
+//                    navController.navigate(NavigationEnum.botnavbar.name)
 
                 },
                 shape = RoundedCornerShape(50.dp),

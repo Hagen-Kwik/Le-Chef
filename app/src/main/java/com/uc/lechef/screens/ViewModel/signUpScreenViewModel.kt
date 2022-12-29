@@ -5,7 +5,9 @@ import androidx.lifecycle.*
 import com.uc.lechef.Models.User
 import com.uc.lechef.repository.userRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import okhttp3.internal.http.StatusLine
 import javax.inject.Inject
 
 
@@ -13,8 +15,10 @@ import javax.inject.Inject
 class signUpScreenViewModel @Inject constructor(private val repository: userRepository
 ): ViewModel() {
 
+    private var _registered  = MutableStateFlow(false)
+    val registered = _registered
+
      fun registerUser(username: String, password: String, email: String) {
-//         Log.d("HERE", "UNAME " + username + "  PASs  " + password + "  EMAMMAL " + email)
         viewModelScope.launch {
             repository.RegisterForNewUser(
                 User("",
@@ -27,13 +31,15 @@ class signUpScreenViewModel @Inject constructor(private val repository: userRepo
                 password,
                 "",
                 "")
-            ).let { StatusLine ->
-                Log.d("RESPONSE", StatusLine.code.toString())
+            ).let {
+//                Log.d("RESPONSE", it.toString())
 //                if (response.isSuccessful) {
 //                    Log.e("POST Data", "SUCCESS")
 //                } else {
 //                    Log.e("POST Data", "Failed")
 //                }
+                _registered.value = true
+
             }
         }
     }

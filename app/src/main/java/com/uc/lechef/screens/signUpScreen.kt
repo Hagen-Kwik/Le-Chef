@@ -8,9 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -32,6 +30,16 @@ import com.uc.lechef.screens.ViewModel.signUpScreenViewModel
 @Composable
 fun SignUpPage (navController: NavController, viewModel: signUpScreenViewModel
 ) {
+
+    LaunchedEffect(key1 = viewModel.registered.collectAsState().value){
+        if (viewModel.registered.value) {
+            navController.navigate(NavigationEnum.loginScreen.name)
+            viewModel.registered.value = false
+        }
+    }
+
+
+
     Box(modifier = Modifier.fillMaxSize()) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
