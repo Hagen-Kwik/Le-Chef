@@ -1,6 +1,7 @@
 package com.uc.lechef.screens.botnavbar_pages
 
 import android.annotation.SuppressLint
+import android.database.Cursor
 import android.graphics.Color.YELLOW
 import android.util.Log
 import androidx.compose.foundation.*
@@ -8,13 +9,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.FavoriteBorder
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
@@ -22,6 +24,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.graphics
+import androidx.compose.ui.graphics.createImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -34,6 +39,8 @@ import com.uc.lechef.R
 import com.uc.lechef.helper.StoreUserCookie
 import com.uc.lechef.screens.ViewModel.HomeScreenViewModel
 import com.uc.lechef.screens.ViewModel.sharedAllScreenViewModel
+import java.sql.Blob
+import java.sql.ResultSet
 
 
 @SuppressLint("StateFlowValueCalledInComposition")
@@ -160,8 +167,13 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),
                                 contentAlignment = Alignment.BottomCenter
 
                             ) {
+                                val blob: ByteArray = item.Foto
+
+                                val bitmap: Bitmap = BitmapFactory.decodeByteArray(blob, 0, blob.size)
+
+                                val imageBitmap: ImageBitmap = ImageBitmap
                                 Image(
-                                    painter = painterResource(id = R.drawable.ingridient1),
+                                    imageBitmap = imageBitmap,
                                     contentDescription = "ingridient",
                                     Modifier
                                         .width(screenWidth / 4)
