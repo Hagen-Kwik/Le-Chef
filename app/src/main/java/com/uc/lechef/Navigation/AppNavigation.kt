@@ -57,7 +57,8 @@ fun AppNavigation(sharedViewModel: sharedAllScreenViewModel = androidx.lifecycle
         }
 
         composable(NavigationEnum.DetailedRecipesScreen.name){
-            DetailedRecipesScreen(navController)
+            DetailedRecipesScreen(navController, sharedViewModel)
+
         }
 
 

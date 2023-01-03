@@ -6,7 +6,7 @@ data class Listbahan(
     val CreatedAt: String,
     val DeletedAt: Any,
     val ID: Int,
-    val Jumlahbahan: Int,
+    val Jumlahbahan: String,
     val Resep_id: Int,
     val UpdatedAt: String
 )

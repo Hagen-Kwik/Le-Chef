@@ -1,7 +1,6 @@
 package com.uc.lechef.screens.botnavbar_pages
 
 import android.annotation.SuppressLint
-import android.database.Cursor
 import android.graphics.Color.YELLOW
 import android.util.Log
 import androidx.compose.foundation.*
@@ -21,6 +20,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -28,7 +28,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.uc.lechef.Navigation.NavigationEnum
@@ -36,8 +35,6 @@ import com.uc.lechef.R
 import com.uc.lechef.helper.StoreUserCookie
 import com.uc.lechef.screens.ViewModel.HomeScreenViewModel
 import com.uc.lechef.screens.ViewModel.sharedAllScreenViewModel
-import java.sql.Blob
-import java.sql.ResultSet
 
 
 @SuppressLint("StateFlowValueCalledInComposition")
@@ -47,6 +44,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),
                HomeScreenViewModel: HomeScreenViewModel
 
 ){
+
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp.dp
     val screenWidth = configuration.screenWidthDp.dp
@@ -57,8 +55,6 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),
         }
     }
 
-    Log.d("here", StoreUserCookie.cookie_User.toString())
-
     LaunchedEffect(key1 = sharedViewModel.IngredientsTrendingFORCHECK.collectAsState(initial = false).value){
         if (sharedViewModel.IngredientsTrending.value != null) {
             sharedViewModel.IngredientsTrendingFORCHECK.value = true
@@ -68,6 +64,17 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),
     LaunchedEffect(key1 = sharedViewModel.RecipeTrendingFORCHECK.collectAsState(initial = false).value){
         if (sharedViewModel.RecipeTrending.value != null) {
             sharedViewModel.RecipeTrendingFORCHECK.value = true
+        }
+    }
+
+    val context = LocalContext.current
+    val COOKIE = StoreUserCookie(context)
+
+
+    LaunchedEffect(key1 = HomeScreenViewModel.changedToDetailed.collectAsState().value){
+        if (HomeScreenViewModel.changedToDetailed.value) {
+            HomeScreenViewModel.resepSpecific.value?.let { sharedViewModel.addDetailedRecipe(it) }
+            navController.navigate(NavigationEnum.DetailedRecipesScreen.name)
         }
     }
 
@@ -101,7 +108,6 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),
                 ) {
                     Text(text = "Recipe of the day",
                         fontSize = 18.sp,
-
                         color = Color.White
                     )
                     //name of food later change
@@ -139,8 +145,6 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),
                 fontStyle = FontStyle(10),
 //                color = Color.White
             )
-
-            //for loop here
 
                     Row(
                         modifier = Modifier
@@ -285,6 +289,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),
                                             ),
                                             modifier = Modifier.clickable {
                                                 //give navigation to recipe details
+                                                HomeScreenViewModel.moveToDetailed(resep.ID, COOKIE.getCookie)
                                             }
                                         )
                                         //icon for heart
