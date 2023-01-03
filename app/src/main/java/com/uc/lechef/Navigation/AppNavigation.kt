@@ -49,7 +49,7 @@ fun AppNavigation(sharedViewModel: sharedAllScreenViewModel = androidx.lifecycle
         }
 
         composable(NavigationEnum.searchByIngredientsScreen.name){
-            searchByIngredientsScreen(navController)
+            searchByIngredientsScreen(navController, sharedViewModel)
         }
 
         composable(NavigationEnum.searchRecipesScreen.name){
