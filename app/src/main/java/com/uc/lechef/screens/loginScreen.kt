@@ -57,6 +57,12 @@ fun LoginPage (navController: NavController, viewModel: loginScreenViewModel, sh
                 }
             }
 
+            viewModel.curUser.value.let {
+                if (it != null) {
+                    sharedViewModel.addCuruser(it)
+                }
+            }
+
             USERID.setUserId(viewModel.userid)
             COOKIE.setCookie(viewModel.token)
 

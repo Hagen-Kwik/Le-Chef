@@ -43,6 +43,12 @@ interface EndPointApi {
     ): retrofit2.Response<resepAll>
 
 
+    @GET("/users/{id}")
+    suspend fun getUserspes(
+        @Path("id") id: Int,
+        @Header("Cookie") token:String
+    ): retrofit2.Response<User>
+
 
 
 

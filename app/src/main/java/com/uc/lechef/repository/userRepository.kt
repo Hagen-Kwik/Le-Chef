@@ -19,4 +19,6 @@ class userRepository @Inject constructor(
 
     suspend fun getRecipeAll(authkey:String) = api.getResepAll(authkey)
 
+    suspend fun getUserspes(id: Int, authkey:String) = api.getUserspes(id, authkey)
+
 }

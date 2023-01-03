@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uc.lechef.Models.ResepSpecific
+import com.uc.lechef.Models.User
 import com.uc.lechef.Models.bahanAll
 import com.uc.lechef.Models.resepAll
 import com.uc.lechef.helper.StoreUserCookie
@@ -25,6 +26,7 @@ class loginScreenViewModel @Inject constructor(private val repository: userRepos
     var  mainRecipeAtTopHomeHeader: MutableStateFlow<ResepSpecific?> = MutableStateFlow(null)
     var  IngredientsAtHome: MutableStateFlow<bahanAll?> = MutableStateFlow(null)
     var RecipesAtHome: MutableStateFlow<resepAll?> = MutableStateFlow(null)
+    var curUser: MutableStateFlow<User?> = MutableStateFlow(null)
 
 
     private var _logged  = MutableStateFlow(false)
@@ -45,7 +47,6 @@ class loginScreenViewModel @Inject constructor(private val repository: userRepos
                 if (response.body()?.status.toString() ?: 400 == "200") {
                     token = token + response.body()?.token ?: "authorization="
                     userid = (response.body()?.user.toString() ?: "")
-
                     if (token != "authorization=") {
                         repository.get1Recipe(3,
                             token)
@@ -64,7 +65,14 @@ class loginScreenViewModel @Inject constructor(private val repository: userRepos
                                 RecipesAtHome.value = response.body()
                             }
 
-                        _logged.value = true
+                        repository.getUserspes(userid.toInt(),token)
+                            .let { response ->
+                                curUser.value = response.body()
+                                Log.d("user", userid)
+                                Log.d("user", response.body().toString())
+                            }
+
+//                        _logged.value = true
 
                     }
 

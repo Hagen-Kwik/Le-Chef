@@ -1,6 +1,6 @@
 package com.uc.lechef.Models
 
-data class User(
+data class UserX(
     val CreatedAt: String,
     val DeletedAt: Any,
     val Email: String,
@@ -10,5 +10,5 @@ data class User(
     val Password: String,
     val Profile_picture: String,
     val Resep: Any,
-    val UpdatedAt: String,
+    val UpdatedAt: String
 )

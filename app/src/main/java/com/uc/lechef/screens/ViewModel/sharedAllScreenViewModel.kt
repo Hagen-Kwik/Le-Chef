@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.uc.lechef.Models.ResepSpecific
+import com.uc.lechef.Models.User
 import com.uc.lechef.Models.bahanAll
 import com.uc.lechef.Models.resepAll
 import com.uc.lechef.repository.userRepository
@@ -46,6 +47,10 @@ class sharedAllScreenViewModel @Inject constructor(private val repository: userR
         _DetailedRecipe.value = ResepSpecific
     }
 
-
+    private var _curuser  = MutableStateFlow<User?>(null)
+    val curuser = _curuser
+    fun addCuruser(curuser: User){
+        _curuser.value = curuser
+    }
 }
 

@@ -56,7 +56,7 @@ fun botnavbar(navController: NavHostController,
                 if (currentSelectedScreenId.value == 0) HomeScreen(navController, sharedViewModel, HomeScreenViewModel)
                 else if (currentSelectedScreenId.value == 1) MyRecipesScreen(navController)
                 else if (currentSelectedScreenId.value == 2) LikedRecipesScreen(navController)
-                else if (currentSelectedScreenId.value == 3) ProfileScreen(navController)
+                else if (currentSelectedScreenId.value == 3) ProfileScreen(navController, sharedViewModel)
             }
         },
 

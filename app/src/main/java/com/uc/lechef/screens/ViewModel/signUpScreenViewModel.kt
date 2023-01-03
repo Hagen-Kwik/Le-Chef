@@ -2,6 +2,7 @@ package com.uc.lechef.screens.ViewModel
 
 import android.util.Log
 import androidx.lifecycle.*
+import com.uc.lechef.Models.Resep
 import com.uc.lechef.Models.User
 import com.uc.lechef.repository.userRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,11 +27,13 @@ class signUpScreenViewModel @Inject constructor(private val repository: userRepo
                 email,
                 -1,
                 username,
-                "0281901",
+
                 true,
                 password,
                 "",
-                "")
+                "", ""
+
+                )
             ).let {
 //                Log.d("RESPONSE", it.toString())
 //                if (response.isSuccessful) {
