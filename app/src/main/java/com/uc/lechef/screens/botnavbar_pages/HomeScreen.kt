@@ -11,12 +11,14 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.util.Base64
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
@@ -24,11 +26,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.graphics
-import androidx.compose.ui.graphics.createImageBitmap
-import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
@@ -167,13 +164,13 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),
                                 contentAlignment = Alignment.BottomCenter
 
                             ) {
-                                val blob: ByteArray = item.Foto
+                                val imageData = Base64.decode(item.Foto, Base64.DEFAULT);
 
-                                val bitmap: Bitmap = BitmapFactory.decodeByteArray(blob, 0, blob.size)
+                                val bitmap: Bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.size)
 
-                                val imageBitmap: ImageBitmap = ImageBitmap
+                                val imageBitmap: ImageBitmap = bitmap.asImageBitmap()
                                 Image(
-                                    imageBitmap = imageBitmap,
+                                    imageBitmap,
                                     contentDescription = "ingridient",
                                     Modifier
                                         .width(screenWidth / 4)
@@ -218,8 +215,13 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),
                             Row(
                             ) {
                                 //change pic of recipe
+                                val imageData = Base64.decode(resep.Foto, Base64.DEFAULT);
+
+                                val bitmap: Bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.size)
+
+                                val imageBitmap: ImageBitmap = bitmap.asImageBitmap()
                                 Image(
-                                    painter = painterResource(id = R.drawable.ingridient1),
+                                    imageBitmap,
                                     contentDescription = "ingridient",
                                     Modifier
                                         .width(screenWidth / 3)
