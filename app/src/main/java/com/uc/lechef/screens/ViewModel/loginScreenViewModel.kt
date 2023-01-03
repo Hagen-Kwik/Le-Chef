@@ -44,8 +44,8 @@ class loginScreenViewModel @Inject constructor(private val repository: userRepos
 
         viewModelScope.launch {
             repository.login(requestBody).let { response ->
-                if (response.body()?.status.toString() ?: 400 == "200") {
-                    token = token + response.body()?.token ?: "authorization="
+                if ((response.body()?.status.toString() ?: 400) == "200") {
+                    token = (token + response.body()?.token) ?: "authorization="
                     userid = (response.body()?.user.toString() ?: "")
                     if (token != "authorization=") {
                         repository.get1Recipe(3,
@@ -67,9 +67,11 @@ class loginScreenViewModel @Inject constructor(private val repository: userRepos
 
                         repository.getUserspes(userid.toInt(),token)
                             .let { response ->
-                                curUser.value = response.body()
+//                                curUser.value = response.body()
                                 Log.d("user", userid)
-                                Log.d("user", response.body().toString())
+
+                                Log.d("token", token)
+                                Log.d("THE RESPONSE", response.body()?.User?.Name.toString())
                             }
 
 //                        _logged.value = true
