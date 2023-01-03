@@ -21,4 +21,5 @@ class userRepository @Inject constructor(
 
     suspend fun getUserspes(id: Int, authkey:String) = api.getUserspes(id, authkey)
 
+    suspend fun getResepbyUser(id: Int, authkey:String) = api.getResepbyuser(id, authkey)
 }

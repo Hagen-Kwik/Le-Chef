@@ -5,10 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.uc.lechef.Models.ResepSpecific
-import com.uc.lechef.Models.User
-import com.uc.lechef.Models.bahanAll
-import com.uc.lechef.Models.resepAll
+import com.uc.lechef.Models.*
 import com.uc.lechef.repository.userRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -47,10 +44,16 @@ class sharedAllScreenViewModel @Inject constructor(private val repository: userR
         _DetailedRecipe.value = ResepSpecific
     }
 
-    private var _curuser  = MutableStateFlow<User?>(null)
+    private var _curuser  = MutableStateFlow<GetUser?>(null)
     val curuser = _curuser
-    fun addCuruser(curuser: User){
+    fun addCuruser(curuser: GetUser){
         _curuser.value = curuser
+    }
+
+    private var _Resepbyuser  = MutableStateFlow<ResepbyUser?>(null)
+    val ResepbyUser = _Resepbyuser
+    fun resepyUser(resep: ResepbyUser){
+        _Resepbyuser.value = resep
     }
 }
 

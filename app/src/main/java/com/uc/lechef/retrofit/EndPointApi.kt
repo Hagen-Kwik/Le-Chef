@@ -32,6 +32,12 @@ interface EndPointApi {
         @Header("Cookie") token:String
     ): retrofit2.Response<ResepSpecific>
 
+    @GET("/resep/user/{id}")
+    suspend fun getResepbyuser(
+        @Path("id") id: Int,
+        @Header("Cookie") token:String
+    ): retrofit2.Response<ResepbyUser>
+
     @GET("/bahan/")
     suspend fun getBahanAll(
         @Header("Cookie") token:String
@@ -48,6 +54,12 @@ interface EndPointApi {
         @Path("id") id: Int,
         @Header("Cookie") token:String
     ): retrofit2.Response<GetUser>
+
+//    @PUT("/users/{id}")
+//    suspend fun updateuser(
+//        @Path("id") id: Int,
+//        @Body data: RequestBody,
+//    ): retrofit2.Response<Login>
 
 
 

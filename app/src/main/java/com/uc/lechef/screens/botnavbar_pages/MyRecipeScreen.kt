@@ -1,5 +1,6 @@
 package com.uc.lechef.screens.botnavbar_pages
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -24,11 +25,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.uc.lechef.Navigation.NavigationEnum
+import com.uc.lechef.screens.ViewModel.sharedAllScreenViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
-@Preview
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun MyRecipesScreen(navController: NavHostController = rememberNavController()) {
+fun MyRecipesScreen(navController: NavHostController = rememberNavController(),
+                    sharedViewModel: sharedAllScreenViewModel,) {
 
     val ScrollState = rememberScrollState()
     var searchbar = remember { mutableStateOf("") }

@@ -3,10 +3,7 @@ package com.uc.lechef.screens.ViewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.uc.lechef.Models.ResepSpecific
-import com.uc.lechef.Models.User
-import com.uc.lechef.Models.bahanAll
-import com.uc.lechef.Models.resepAll
+import com.uc.lechef.Models.*
 import com.uc.lechef.helper.StoreUserCookie
 import com.uc.lechef.repository.userRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,7 +23,8 @@ class loginScreenViewModel @Inject constructor(private val repository: userRepos
     var  mainRecipeAtTopHomeHeader: MutableStateFlow<ResepSpecific?> = MutableStateFlow(null)
     var  IngredientsAtHome: MutableStateFlow<bahanAll?> = MutableStateFlow(null)
     var RecipesAtHome: MutableStateFlow<resepAll?> = MutableStateFlow(null)
-    var curUser: MutableStateFlow<User?> = MutableStateFlow(null)
+    var curUser: MutableStateFlow<GetUser?> = MutableStateFlow(null)
+    var Resepbyuser: MutableStateFlow<ResepbyUser?> = MutableStateFlow(null)
 
 
     private var _logged  = MutableStateFlow(false)
@@ -67,14 +65,16 @@ class loginScreenViewModel @Inject constructor(private val repository: userRepos
 
                         repository.getUserspes(userid.toInt(),token)
                             .let { response ->
-//                                curUser.value = response.body()
-                                Log.d("user", userid)
-
-                                Log.d("token", token)
-                                Log.d("THE RESPONSE", response.body()?.User?.Name.toString())
+                                curUser.value = response.body()
                             }
 
-//                        _logged.value = true
+                        repository.getResepbyUser(userid.toInt(),token)
+                            .let { response ->
+                                Resepbyuser.value = response.body()
+                                Log.d("resep", response.body().toString())
+                            }
+
+                        _logged.value = true
 
                     }
 

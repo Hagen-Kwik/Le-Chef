@@ -1,6 +1,5 @@
 package com.uc.lechef.Models
 
-
 data class Resep(
     val CreatedAt: String,
     val Created_by: Int,
@@ -14,9 +13,10 @@ data class Resep(
     val Portionsize: Int,
     val Rating: Int,
     val Steps: String,
+    val Timetaken: String,
+    val Totalcal: Int,
     val UpdatedAt: String,
     val User: User,
     val Users: Any,
-    val Video: String,
-    val Timetaken: String
+    val Video: String
 )

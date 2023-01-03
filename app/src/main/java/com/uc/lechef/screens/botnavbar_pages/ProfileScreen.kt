@@ -93,7 +93,7 @@ fun ProfileScreen(navController: NavHostController = rememberNavController(),
 
                 }
                 Text(
-                    text = sharedViewModel.curuser.value?.Name!!,
+                    text = sharedViewModel.curuser.value?.User?.Name!!,
                     fontWeight = FontWeight.Bold,
                     fontStyle = FontStyle(10),
                     fontSize = 27.sp,
@@ -101,7 +101,7 @@ fun ProfileScreen(navController: NavHostController = rememberNavController(),
                 )
 
                 Text(
-                    text = sharedViewModel.curuser.value?.Email!!,
+                    text = sharedViewModel.curuser.value?.User?.Email!!,
                     fontWeight = FontWeight.Bold,
                     fontStyle = FontStyle(10),
                     fontSize = 20.sp,
