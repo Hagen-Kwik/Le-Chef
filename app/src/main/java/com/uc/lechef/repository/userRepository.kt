@@ -1,5 +1,6 @@
 package com.uc.lechef.repository
 
+import com.uc.lechef.Models.ForMakingRecipe
 import com.uc.lechef.Models.User
 import com.uc.lechef.retrofit.EndPointApi
 import okhttp3.RequestBody
@@ -22,4 +23,12 @@ class userRepository @Inject constructor(
     suspend fun getUserspes(id: Int, authkey:String) = api.getUserspes(id, authkey)
 
     suspend fun getResepbyUser(id: Int, authkey:String) = api.getResepbyuser(id, authkey)
+
+//    suspend fun createResep(authkey: String, RequestBody: RequestBody) = api.createResep(authkey, RequestBody)
+
+    suspend fun createResep(authkey: String, ForMakingRecipe: ForMakingRecipe) = api.createResep(authkey, ForMakingRecipe)
+
+
+    suspend fun createListBahan(authkey: String, RequestBody: RequestBody) = api.createListBahan(authkey, RequestBody)
+
 }

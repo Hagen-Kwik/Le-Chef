@@ -42,7 +42,7 @@ fun AppNavigation(sharedViewModel: sharedAllScreenViewModel = androidx.lifecycle
             uploadRecipeOneScreen(navController,sharedViewModel,UploadRecipeViewModel)
         }
 
-        composable(NavigationEnum.uploadRecipeOneScreen.name){
+        composable(NavigationEnum.uploadRecipeTwoScreen.name){
             uploadRecipeTwoScreen(navController,sharedViewModel,UploadRecipeViewModel)
         }
 

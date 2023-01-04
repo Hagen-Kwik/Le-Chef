@@ -61,8 +61,24 @@ interface EndPointApi {
 //        @Body data: RequestBody,
 //    ): retrofit2.Response<Login>
 
+//
+//    @POST("/resep")
+//    suspend fun createResep(
+//        @Header("Cookie") token:String,
+//        @Body data: RequestBody,
+//    ):retrofit2.Response<CreateResep>
 
+    @POST("/resep")
+    suspend fun createResep(
+        @Header("Cookie") token:String,
+        @Body data: ForMakingRecipe,
+    ):retrofit2.Response<CreateResep>
 
+    @POST("/listBahan")
+    suspend fun createListBahan(
+        @Header("Cookie") token:String,
+        @Body data: RequestBody,
+    ):retrofit2.Response<status>
 
 //    @POST("/users")
 //    suspend fun postUserData(

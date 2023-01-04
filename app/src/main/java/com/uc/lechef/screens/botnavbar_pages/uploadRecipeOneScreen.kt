@@ -1,12 +1,11 @@
 package com.uc.lechef.screens.botnavbar_pages
 
 import android.annotation.SuppressLint
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -15,14 +14,13 @@ import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.uc.lechef.Navigation.NavigationEnum
 import com.uc.lechef.screens.ViewModel.UploadRecipeScreenViewModel
 import com.uc.lechef.screens.ViewModel.sharedAllScreenViewModel
-import com.uc.lechef.screens.botnavbar_pages.ui.theme.LeChefTheme
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @OptIn(ExperimentalMaterialApi::class)
@@ -31,8 +29,6 @@ fun uploadRecipeOneScreen(navController: NavHostController = rememberNavControll
                           sharedViewModel: sharedAllScreenViewModel,
                           UploadRecipeViewModel : UploadRecipeScreenViewModel
                             ) {
-
-
 
 
     val ScrollState = rememberScrollState()
@@ -60,10 +56,12 @@ fun uploadRecipeOneScreen(navController: NavHostController = rememberNavControll
 
             Spacer(modifier = Modifier.width(0.dp))
         }
-        
+
+
+        val name = remember { mutableStateOf("") }
         Text(text = "Name")
-        TextField(value = "", onValueChange = {
-            UploadRecipeViewModel.recipe_name = it
+        TextField(value = name.value, onValueChange = {
+            name.value = it
 
         },
             placeholder = { Text("Name of recipe...") },
@@ -72,9 +70,11 @@ fun uploadRecipeOneScreen(navController: NavHostController = rememberNavControll
                 .padding(0.dp, 5.dp)
         )
 
+
+        val desc = remember { mutableStateOf("") }
         Text(text = "Description of Food")
-        TextField(value = "", onValueChange = {
-            UploadRecipeViewModel.recipe_description = it
+        TextField(value = desc.value, onValueChange = {
+            desc.value = it
 
         },
             placeholder = { Text("The food's Description of your recipe...") },
@@ -85,50 +85,78 @@ fun uploadRecipeOneScreen(navController: NavHostController = rememberNavControll
 
         )
 
-        var expanded by remember {
-            mutableStateOf(false)
-        }
-
-        var selectedItemDropDown by remember {
-            mutableStateOf(-1)
-        }
-
         var jumlahBahanINVIEW by remember {
             mutableStateOf("")
         }
 
+        var ID by remember {
+            mutableStateOf(-1)
+        }
+
+        var selectedOptionText by remember {
+            mutableStateOf("")
+        }
+
         Text(text = "Ingredients")
-//kasih drop down kalo ada
-        Row{
 
-            ExposedDropdownMenuBox(expanded = expanded,
-                onExpandedChange = {
+        var expanded by remember {
+            mutableStateOf(false)
+        }
+
+        ExposedDropdownMenuBox(
+            expanded = expanded,
+            onExpandedChange = {
                 expanded = !expanded
-            }) {
-
-                for ( bahan in sharedViewModel.IngredientsTrending.value?.Bahan!!){
-                    DropdownMenuItem(onClick = {
-                        selectedItemDropDown = bahan.ID
-                        expanded = false
-                    }) {
-                        Text(text = bahan.Namabahan)
-                    }
-                }
             }
+        ) {
+            TextField(
+                readOnly = true,
+                value = selectedOptionText,
+                onValueChange = { },
+                label = { Text("Ingredients") },
+                trailingIcon = {
+                    ExposedDropdownMenuDefaults.TrailingIcon(
+                        expanded = expanded
+                    )
+                },
+                colors = ExposedDropdownMenuDefaults.textFieldColors()
+            )
+            ExposedDropdownMenu(
+                expanded = expanded,
+                onDismissRequest = {
+                    expanded = false
+                }
+            ) {
+                for(item in sharedViewModel.IngredientsTrending.value?.Bahan!!)
+                    DropdownMenuItem(
+                        onClick = {
+                            ID = item.ID
+                            selectedOptionText = item.Namabahan
+                            expanded = false
+                        }
+                    ) {
+                        Text(text = item.Namabahan)
+                    }
+            }
+        }
 
+        val jumlahbahan = remember { mutableStateOf("") }
 
-            TextField(value = "", onValueChange = {
-                jumlahBahanINVIEW = it
+            TextField(value = jumlahbahan.value, onValueChange = {
+                jumlahbahan.value = it
             },
                 placeholder = { Text("Jumlah Bahan") },
                 modifier = Modifier
-                    .fillMaxWidth()
                     .padding(0.dp, 5.dp)
+                    .fillMaxWidth()
             )
 
             Button(
                 onClick = {
-                    UploadRecipeViewModel.addBahanToEachArray(selectedItemDropDown, jumlahBahanINVIEW)
+                    Log.d("MASUK GA YA 1" , ID.toString())
+                    Log.d("MASUK GA YA 2" , jumlahBahanINVIEW)
+
+                    UploadRecipeViewModel.addBahanToEachArray(ID, jumlahbahan.value)
                 }
             ) {
                 Text(text = "Add")
@@ -137,12 +165,13 @@ fun uploadRecipeOneScreen(navController: NavHostController = rememberNavControll
                     contentDescription = null,
                 )
             }
-        }
+
+
+        val time = remember { mutableStateOf("") }
 
         Text(text = "Time Needed")
-//        time
-        TextField(value = "", onValueChange = {
-             UploadRecipeViewModel.recipe_time_needed = it
+        TextField(value = time.value, onValueChange = {
+            time.value = it
         },
             placeholder = { Text("Time Taken e.g (2 hours)") },
             modifier = Modifier
@@ -152,9 +181,27 @@ fun uploadRecipeOneScreen(navController: NavHostController = rememberNavControll
 
         )
 
+
+        val porsi = remember { mutableStateOf(0) }
+
+        Text(text = "Recipe Portion")
+        TextField(value = porsi.value.toString(), onValueChange = {
+            porsi.value = it.toInt()
+        },
+            placeholder = { Text(" e.g 3 servings") },
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(0.dp, 5.dp)
+
+
+        )
+
+        val instruc = remember { mutableStateOf("") }
+
         Text(text = "Instructions")
-        TextField(value = "", onValueChange = {
-            UploadRecipeViewModel.recipe_instructions = it
+        TextField(value = instruc.value, onValueChange = {
+            instruc.value = it
 
         },
             placeholder = { Text("Cooking Instructions") },
@@ -165,6 +212,7 @@ fun uploadRecipeOneScreen(navController: NavHostController = rememberNavControll
         )
         
         Button(onClick = {
+            UploadRecipeViewModel.addEachAttribute(name.value, desc.value, time.value, porsi.value, instruc.value)
             navController.navigate(NavigationEnum.uploadRecipeTwoScreen.name)
         },
             modifier = Modifier.fillMaxWidth(),
