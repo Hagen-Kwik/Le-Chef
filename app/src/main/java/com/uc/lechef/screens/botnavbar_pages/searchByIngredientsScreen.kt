@@ -18,12 +18,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.List
 import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
@@ -125,10 +127,16 @@ fun searchByIngredientsScreen(navController: NavHostController = rememberNavCont
             }
 //    give items here
         }
-        val numbers = (0..20).toList()
         var i = 0
+        Column() {
+            
+        }
         LazyVerticalGrid(
-            cells = GridCells.Fixed(2)
+            cells = GridCells.Fixed(2),
+            verticalArrangement = Arrangement.spacedBy(15.dp),
+            horizontalArrangement = Arrangement.spacedBy(15.dp),
+            
+            modifier = Modifier.padding(20.dp)
         ) {
             items(sharedViewModel.IngredientsTrending.value?.Bahan!!.size) {
                 //cardview here
@@ -139,18 +147,36 @@ fun searchByIngredientsScreen(navController: NavHostController = rememberNavCont
                     val bitmap: Bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.size)
 
                     val imageBitmap: ImageBitmap = bitmap.asImageBitmap()
+
                     Image(
                         imageBitmap,
                         contentDescription = "ingridient",
                         Modifier
-                            .fillMaxSize(),
+                            .height(screenWidth / 3)
+                            .width(screenWidth / 3),
                         contentScale = ContentScale.Crop,
                     )
-                    Column(horizontalAlignment = Alignment.CenterHorizontally
-                    verticalAr) {
-//                    Text(text = i.toString())
-                        Text(text = sharedViewModel.IngredientsTrending.value?.Bahan!!.get(i).Namabahan)
-                        i++
+                    Row(
+                            verticalAlignment = Alignment.Bottom,
+                            modifier = Modifier
+                                .height(screenWidth / 3)
+                                .width(screenWidth / 3)
+                     ) {
+                        Row(
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            modifier = Modifier.alpha(0.8f)
+                            .background(Color.Gray)
+                                .fillMaxWidth()
+                                .padding(start = 10.dp, end = 10.dp)
+                        ) {
+                            Text(text = sharedViewModel.IngredientsTrending.value?.Bahan!!.get(i).Namabahan)
+                            i++
+                            Icon(
+                                imageVector = Icons.Rounded.Add,
+                                contentDescription = null,
+                                tint = Color.Black,
+                            )
+                        }
                     }
                 }
             }
