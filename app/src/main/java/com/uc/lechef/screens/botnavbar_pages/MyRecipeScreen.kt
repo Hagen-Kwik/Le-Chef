@@ -56,7 +56,7 @@ fun MyRecipesScreen(navController: NavHostController = rememberNavController(),
     LazyColumn() {
         stickyHeader {
 
-            Text(text = "My tes page",
+            Text(text = "My Recipe page",
                 modifier = Modifier.padding(20.dp),
                 color = Color(249, 162, 46)
             )
@@ -191,15 +191,15 @@ fun MyRecipesScreen(navController: NavHostController = rememberNavController(),
                                         }
                                     )
                                     //icon for heart
-                                    Icon(painter = painterResource(id = R.drawable.icon_unliked),
-                                        tint = Color(254,114,76),
-                                        contentDescription = "Like Button",
-                                        modifier = Modifier
-                                            .scale(1.5f)
-                                            .clickable {
-                                                //add to favourites
-                                            }
-                                    )
+//                                    Icon(painter = painterResource(id = R.drawable.icon_unliked),
+//                                        tint = Color(254,114,76),
+//                                        contentDescription = "Like Button",
+//                                        modifier = Modifier
+//                                            .scale(1.5f)
+//                                            .clickable {
+//                                                //add to favourites
+//                                            }
+//                                    )
                                 }
                             }
                         }

@@ -61,6 +61,15 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),
         }
     }
 
+    LaunchedEffect(key1 = HomeScreenViewModel.added.collectAsState().value){
+        if (HomeScreenViewModel.added.value) {
+            //update the value
+            HomeScreenViewModel.savedrecipe.value
+
+            HomeScreenViewModel.added.value = false
+        }
+    }
+
     LaunchedEffect(key1 = sharedViewModel.RecipeTrendingFORCHECK.collectAsState(initial = false).value){
         if (sharedViewModel.RecipeTrending.value != null) {
             sharedViewModel.RecipeTrendingFORCHECK.value = true
@@ -302,7 +311,11 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),
                                             modifier = Modifier
                                                 .scale(1.5f)
                                                 .clickable {
-                                                    //add to favourites
+                                                    Log.d("cookie", COOKIE.getCookie.toString())
+                                                    sharedViewModel.curuser.value?.User?.ID?.let {
+                                                        HomeScreenViewModel.addtosaved(resep.ID,
+                                                            it, COOKIE.getCookie)
+                                                    }
                                                 }
                                         )
                                     }

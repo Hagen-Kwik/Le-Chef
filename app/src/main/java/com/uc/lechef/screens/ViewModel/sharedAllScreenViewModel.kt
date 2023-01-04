@@ -55,5 +55,11 @@ class sharedAllScreenViewModel @Inject constructor(private val repository: userR
     fun resepyUser(resep: ResepbyUser){
         _Resepbyuser.value = resep
     }
+
+    private var _savedrecipe  = MutableStateFlow<saved_recipe?>(null)
+    val savedrecipe = _savedrecipe
+    fun addtosaved(saved_recipe: saved_recipe){
+        _savedrecipe.value = saved_recipe
+    }
 }
 

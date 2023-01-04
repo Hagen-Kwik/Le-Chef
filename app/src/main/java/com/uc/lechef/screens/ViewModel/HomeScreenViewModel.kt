@@ -3,7 +3,7 @@ package com.uc.lechef.screens.ViewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.uc.lechef.Models.ResepSpecific
+import com.uc.lechef.Models.*
 import com.uc.lechef.helper.StoreUserCookie
 import com.uc.lechef.repository.userRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,10 +16,16 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(private val repository: userRepository,
 ): ViewModel() {
+    private var _added  = MutableStateFlow(false)
+    val added = _added
 
     private var _changedToDetailed  = MutableStateFlow(false)
     val changedToDetailed = _changedToDetailed
 
+    private var _vieweddata  = MutableStateFlow(false)
+    val vieweddata = _vieweddata
+
+    var  savedrecipe: MutableStateFlow<saved_recipe?> = MutableStateFlow(null)
     var resepSpecific: MutableStateFlow<ResepSpecific?> = MutableStateFlow(null)
 
     fun moveToDetailed(int: Int, COOKIE: Flow<String?>) {
@@ -34,6 +40,35 @@ class HomeScreenViewModel @Inject constructor(private val repository: userReposi
                 }
             }
 
+        }
+    }
+
+    fun addtosaved(resepid: Int,userid: Int, COOKIE: Flow<String?>) {
+
+        viewModelScope.launch {
+            COOKIE.collect{
+                if (it != null) {
+                    Log.d("created", createsavedrecipe(resepid,userid).toString())
+                    repository.addtosaved(
+                        it,createsavedrecipe(resepid,userid)
+                    ).let {
+                        _added.value = true
+                    }
+                }
+            }
+        }
+    }
+
+    fun readsavedrecipe(userid: Int, COOKIE: Flow<String?>) {
+        viewModelScope.launch {
+            COOKIE.collect{
+                if (it != null) {
+                    repository.getsavedbyuser(userid,it).let { response ->
+                        savedrecipe.value = response.body()
+                        _vieweddata.value = true
+                    }
+                }
+            }
         }
     }
 }
