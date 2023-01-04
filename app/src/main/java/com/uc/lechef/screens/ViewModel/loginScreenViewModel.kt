@@ -46,7 +46,7 @@ class loginScreenViewModel @Inject constructor(private val repository: userRepos
                     token = (token + response.body()?.token) ?: "authorization="
                     userid = (response.body()?.user.toString() ?: "")
                     if (token != "authorization=") {
-                        repository.get1Recipe(3,
+                        repository.get1Recipe(1,
                             token)
                             .let { response ->
                                 mainRecipeAtTopHomeHeader.value = response.body()!!

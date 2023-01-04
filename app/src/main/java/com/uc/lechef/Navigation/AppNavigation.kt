@@ -7,10 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.uc.lechef.screens.LoginPage
 import com.uc.lechef.screens.SignUpPage
 import com.uc.lechef.screens.SplashScreen
-import com.uc.lechef.screens.ViewModel.HomeScreenViewModel
-import com.uc.lechef.screens.ViewModel.loginScreenViewModel
-import com.uc.lechef.screens.ViewModel.sharedAllScreenViewModel
-import com.uc.lechef.screens.ViewModel.signUpScreenViewModel
+import com.uc.lechef.screens.ViewModel.*
 import com.uc.lechef.screens.botnavbar_pages.*
 
 @Composable
@@ -18,6 +15,7 @@ fun AppNavigation(sharedViewModel: sharedAllScreenViewModel = androidx.lifecycle
                   signUpviewModel: signUpScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
                   LoginviewModel: loginScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
                   homeViewModel: HomeScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
+                  UploadRecipeViewModel: UploadRecipeScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
 ) {
 
 
@@ -41,11 +39,11 @@ fun AppNavigation(sharedViewModel: sharedAllScreenViewModel = androidx.lifecycle
         }
 
         composable(NavigationEnum.uploadRecipeOneScreen.name){
-            uploadRecipeOneScreen(navController)
+            uploadRecipeOneScreen(navController,sharedViewModel,UploadRecipeViewModel)
         }
 
         composable(NavigationEnum.uploadRecipeOneScreen.name){
-            uploadRecipeTwoScreen(navController)
+            uploadRecipeTwoScreen(navController,sharedViewModel,UploadRecipeViewModel)
         }
 
         composable(NavigationEnum.searchByIngredientsScreen.name){

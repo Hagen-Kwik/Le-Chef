@@ -155,7 +155,6 @@ fun LoginPage (navController: NavController, viewModel: loginScreenViewModel, sh
             Button(
                 onClick = {
                     viewModel.login(username.value,password.value)
-//                    navController.navigate(NavigationEnum.botnavbar.name)
 
                 },
                 shape = RoundedCornerShape(50.dp),

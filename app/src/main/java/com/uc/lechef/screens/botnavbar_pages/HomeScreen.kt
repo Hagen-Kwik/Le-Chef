@@ -74,6 +74,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),
     LaunchedEffect(key1 = HomeScreenViewModel.changedToDetailed.collectAsState().value){
         if (HomeScreenViewModel.changedToDetailed.value) {
             HomeScreenViewModel.resepSpecific.value?.let { sharedViewModel.addDetailedRecipe(it) }
+            HomeScreenViewModel.changedToDetailed.value = false
             navController.navigate(NavigationEnum.DetailedRecipesScreen.name)
         }
     }
@@ -254,6 +255,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),
                                                     .scale(3f)
                                                 )
                                             //text time taken
+                                            Spacer(modifier = Modifier.width(5.dp))
                                             Text(text = resep.Timetaken)
                                         }
                                         Row(
@@ -270,6 +272,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),
                                                     .scale(3f)
                                             )
                                             //text rating
+                                            Spacer(modifier = Modifier.width(5.dp))
                                             Text(text = resep.Rating.toString())
                                         }
                                     }

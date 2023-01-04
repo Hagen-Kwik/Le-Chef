@@ -29,7 +29,6 @@ class HomeScreenViewModel @Inject constructor(private val repository: userReposi
                 if (it != null) {
                     repository.get1Recipe(int,it).let { response ->
                     resepSpecific.value = response.body()
-                    Log.d("SKLIAN DISINI", response.body().toString())
                     _changedToDetailed.value = true
                     }
                 }

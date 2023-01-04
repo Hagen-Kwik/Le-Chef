@@ -25,10 +25,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.uc.lechef.Navigation.NavigationEnum
 import com.uc.lechef.R
+import com.uc.lechef.screens.ViewModel.UploadRecipeScreenViewModel
+import com.uc.lechef.screens.ViewModel.sharedAllScreenViewModel
 
-@Preview(showBackground = true)
 @Composable
-fun uploadRecipeTwoScreen(navController: NavHostController = rememberNavController()) {
+fun uploadRecipeTwoScreen(navController: NavHostController = rememberNavController(),
+                          sharedViewModel: sharedAllScreenViewModel,
+                          UploadRecipeViewModel : UploadRecipeScreenViewModel
+) {
 
     val ScrollState = rememberScrollState()
     val configuration = LocalConfiguration.current

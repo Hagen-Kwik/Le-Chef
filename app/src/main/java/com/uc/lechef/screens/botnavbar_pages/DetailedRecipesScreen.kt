@@ -62,6 +62,7 @@ fun DetailedRecipesScreen(navController: NavHostController = rememberNavControll
         if (sharedViewModel.DetailedRecipe.value != null) {
             sharedViewModel.RecipeoftheDayFORCHECK.value = true
         }
+        sharedViewModel.RecipeoftheDayFORCHECK.value = false
     }
 
 
@@ -113,7 +114,7 @@ fun DetailedRecipesScreen(navController: NavHostController = rememberNavControll
                                 tint = Color.Black,
                                 modifier = Modifier.clickable {
                                     navController.popBackStack()
-                                    //for some reason ga mau back
+                                        //for some reason ga mau back
                                 }
                             )
                         }
@@ -150,10 +151,11 @@ fun DetailedRecipesScreen(navController: NavHostController = rememberNavControll
                     fontWeight = FontWeight.Bold,
                     fontStyle = FontStyle(10),
                     fontSize = 30.sp,)
-
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(5.dp),
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .fillMaxWidth(),
                     horizontalArrangement = Arrangement.End,
 
                     ) {
@@ -161,7 +163,7 @@ fun DetailedRecipesScreen(navController: NavHostController = rememberNavControll
                         contentDescription = null,
                         modifier = Modifier.scale(3f)
                     )
-                    Spacer(modifier = Modifier.weight(5f))
+                    Spacer(Modifier.width(10.dp))
                     Text(text = sharedViewModel.DetailedRecipe.value?.resep?.Rating.toString() ?: "")
                 }
             }
