@@ -11,14 +11,19 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.uc.lechef.Navigation.NavigationEnum
+import com.uc.lechef.R
 import com.uc.lechef.screens.ViewModel.UploadRecipeScreenViewModel
 import com.uc.lechef.screens.ViewModel.sharedAllScreenViewModel
 
@@ -32,6 +37,10 @@ fun uploadRecipeOneScreen(navController: NavHostController = rememberNavControll
 
 
     val ScrollState = rememberScrollState()
+
+    LaunchedEffect(key1 = UploadRecipeViewModel.arraylistBahanMutableState.collectAsState(initial = false).value){
+        UploadRecipeViewModel.arraylistBahanMutableState.value = false
+    }
 
     Column(modifier = Modifier
         .fillMaxSize()
@@ -99,6 +108,25 @@ fun uploadRecipeOneScreen(navController: NavHostController = rememberNavControll
 
         Text(text = "Ingredients")
 
+        for ((counter, things) in UploadRecipeViewModel.allBahanArray.withIndex()){
+            Row(
+                modifier = Modifier.padding(10.dp)
+            ){
+                Text(text = things.nama+" :")
+                Spacer(Modifier.width(2.dp))
+                Text(text = things.jumlahbahan)
+                Spacer(Modifier.width(5.dp))
+                Icon(imageVector = Icons.Rounded.Close,
+                    contentDescription = "",
+                    modifier = Modifier
+                        .scale(1.5f)
+                        .clickable {
+                            UploadRecipeViewModel.deleteBahanFromArray(counter)
+                        }
+                    )
+            }
+        }
+
         var expanded by remember {
             mutableStateOf(false)
         }
@@ -107,7 +135,9 @@ fun uploadRecipeOneScreen(navController: NavHostController = rememberNavControll
             expanded = expanded,
             onExpandedChange = {
                 expanded = !expanded
-            }
+            },
+            modifier = Modifier
+                    .fillMaxWidth()
         ) {
             TextField(
                 readOnly = true,
@@ -125,7 +155,9 @@ fun uploadRecipeOneScreen(navController: NavHostController = rememberNavControll
                 expanded = expanded,
                 onDismissRequest = {
                     expanded = false
-                }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
             ) {
                 for(item in sharedViewModel.IngredientsTrending.value?.Bahan!!)
                     DropdownMenuItem(
@@ -156,7 +188,7 @@ fun uploadRecipeOneScreen(navController: NavHostController = rememberNavControll
                     Log.d("MASUK GA YA 1" , ID.toString())
                     Log.d("MASUK GA YA 2" , jumlahBahanINVIEW)
 
-                    UploadRecipeViewModel.addBahanToEachArray(ID, jumlahbahan.value)
+                    UploadRecipeViewModel.addBahanToEachArray(ID, jumlahbahan.value, selectedOptionText)
                 }
             ) {
                 Text(text = "Add")

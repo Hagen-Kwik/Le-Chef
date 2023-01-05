@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.util.Base64
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -62,6 +63,20 @@ fun uploadRecipeTwoScreen(navController: NavHostController = rememberNavControll
     val bytearraystring64 = remember { mutableStateOf("") }
 
 
+    LaunchedEffect(key1 = UploadRecipeViewModel.FINISHED.collectAsState(false).value){
+        Log.d("WHAT WRONG", UploadRecipeViewModel.FINISHED.value.toString())
+        UploadRecipeViewModel.ResepbyTHISuser.value.let {
+            if (it != null) {
+                sharedViewModel.resepyUser(it)
+            }
+        }
+        sharedViewModel.ResepbyuserFORCHECK.value = true
+        if (UploadRecipeViewModel.FINISHED.value) {
+            UploadRecipeViewModel.FINISHED.value = false
+            navController.popBackStack()
+            navController.popBackStack()
+        }
+    }
 
 //    val bitmap2: Bitmap = BitmapFactory.decodeByteArray(tes, 0, tes.size)
 

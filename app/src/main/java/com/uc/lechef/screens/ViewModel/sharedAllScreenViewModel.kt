@@ -51,6 +51,7 @@ class sharedAllScreenViewModel @Inject constructor(private val repository: userR
     }
 
     private var _Resepbyuser  = MutableStateFlow<ResepbyUser?>(null)
+    var ResepbyuserFORCHECK = MutableStateFlow(false)
     val ResepbyUser = _Resepbyuser
     fun resepyUser(resep: ResepbyUser){
         _Resepbyuser.value = resep

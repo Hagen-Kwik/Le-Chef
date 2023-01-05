@@ -86,10 +86,10 @@ interface EndPointApi {
         @Body data: ForMakingRecipe,
     ):retrofit2.Response<CreateResep>
 
-    @POST("/listBahan")
+    @POST("/listbahan")
     suspend fun createListBahan(
         @Header("Cookie") token:String,
-        @Body data: RequestBody,
+        @Body data: ForUploadToListBahan,
     ):retrofit2.Response<status>
 
 //    @POST("/users")

@@ -5,9 +5,13 @@ import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uc.lechef.Models.ForMakingRecipe
+import com.uc.lechef.Models.ForUploadToListBahan
+import com.uc.lechef.Models.ResepbyUser
+import com.uc.lechef.Models.TempForRecipeScreenBahan
 import com.uc.lechef.repository.userRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -17,6 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class UploadRecipeScreenViewModel @Inject constructor(private val repository: userRepository,
 ): ViewModel() {
+
+    var FINISHED  = MutableStateFlow(false)
 
     var recipe_name = ""
     var recipe_time_needed = ""
@@ -49,20 +55,30 @@ class UploadRecipeScreenViewModel @Inject constructor(private val repository: us
     //FOR RESEP ID HARUS BIKIN RESEP E SEK
     var FORARRAYresepID = -1
 
-    var eachBahanArray = arrayOfNulls<String>(2)
-    var allBahanArray = arrayListOf<Array<String?>>()
+    var allBahanArray = arrayListOf<TempForRecipeScreenBahan>()
 
-    fun addBahanToEachArray(bahanID: Int, jumlahbahan: String) {
-        eachBahanArray[0] = bahanID.toString()
+    private var _arraylistBahanMutableState  = MutableStateFlow(false)
+    val arraylistBahanMutableState = _arraylistBahanMutableState
+
+    fun addBahanToEachArray(bahanID: Int, jumlahbahan: String, nama :String) {
+
         if (jumlahbahan == ""){
-            eachBahanArray[1] = "secukupnya"
+            allBahanArray.add(TempForRecipeScreenBahan(bahanID, "Secukupnya", nama))
+        } else {
+            allBahanArray.add(TempForRecipeScreenBahan(bahanID, jumlahbahan, nama))
         }
-        eachBahanArray[1] = jumlahbahan
-        allBahanArray.add(eachBahanArray)
+        _arraylistBahanMutableState.value = true
+
+    }
+
+
+    fun deleteBahanFromArray(int: Int){
+        allBahanArray.removeAt(int)
+        _arraylistBahanMutableState.value = true
     }
 
     var forIdResep = -1
-    val mediaType = "application/json; charset=utf-8".toMediaType()
+    var ResepbyTHISuser: MutableStateFlow<ResepbyUser?> = MutableStateFlow(null)
 
     fun createNewRecipe(COOKIE: Flow<String?>, USERID: Flow<String?>, ) {
         viewModelScope.launch {
@@ -70,27 +86,6 @@ class UploadRecipeScreenViewModel @Inject constructor(private val repository: us
                 if (cookie != null) {
                     USERID.collect { id ->
                         if (id != null) {
-
-//                            val json = JSONObject()
-//                            json.put("Created_by", id.toInt())
-//                            json.put("jumlahrating", 0)
-//                            json.put("Rating", 0)
-//                            json.put("Description", recipe_description)
-//                            json.put("Judul", recipe_name)
-//                            json.put("Portionsize", recipe_portion)
-//                            json.put("Foto", photo)
-//                            json.put("Video", "")
-//                            json.put("Timetaken", recipe_time_needed)
-//                            json.put("Steps", recipe_instructions)
-//
-//                            val requestBody = json.toString().toRequestBody(mediaType)
-//
-//                            Log.d("json", json.toString())
-//                            Log.d("cookie", cookie)
-
-
-
-
                             repository.createResep(cookie, ForMakingRecipe(id.toInt(),
                                 recipe_description,photo,recipe_name,recipe_portion,0,
                                 recipe_instructions,recipe_time_needed,"",0)
@@ -100,15 +95,20 @@ class UploadRecipeScreenViewModel @Inject constructor(private val repository: us
                             }
 
                             for (item in allBahanArray) {
-                                val json = JSONObject()
-                                json.put("Resep_id", id.toInt())
-                                item[0]?.let { json.put("Bahan_id", it.toInt()) }
-                                json.put("Jumlahbahan", item[1].toString())
+                                Log.d("ITEMSSSSSSSSSSS", item.toString())
+                                Log.d("FORIDRESEPP", forIdResep.toString())
 
-                                val requestBody = json.toString().toRequestBody(mediaType)
-
-                                repository.createListBahan(cookie, requestBody)
+                                repository.createListBahan(cookie, ForUploadToListBahan(item.bahanID, item.jumlahbahan,forIdResep))
                             }
+
+
+                            repository.getResepbyUser(id.toInt(),cookie)
+                                .let { response ->
+                                    ResepbyTHISuser.value = response.body()
+                                }
+
+                            FINISHED.value = true
+
                         }
                     }
                 }
