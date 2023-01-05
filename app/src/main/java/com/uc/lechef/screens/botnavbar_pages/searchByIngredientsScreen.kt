@@ -148,10 +148,9 @@ fun searchByIngredientsScreen(
                 cells = GridCells.Fixed(2),
                 verticalArrangement = Arrangement.spacedBy(15.dp),
                 horizontalArrangement = Arrangement.spacedBy(15.dp),
-                modifier = Modifier.padding(20.dp)
+                modifier = Modifier.padding(20.dp).height(screenHeight*7/10)
 
             ) {
-            var bahans: List<Bahan>
                 items(sharedViewModel.IngredientsTrending.value?.Bahan!!) {     bahan ->
                     Card() {
                         val imageData =
@@ -200,12 +199,9 @@ fun searchByIngredientsScreen(
                         }
                     }
                 }
+
             }
-//            items(sharedViewModel.IngredientsTrending.value?.Bahan!!) {
-//                //cardview here
-//
-//
-//            }
+
 
             Box(contentAlignment = Alignment.BottomCenter,
                 modifier = Modifier
