@@ -1,8 +1,11 @@
 package com.uc.lechef.screens.botnavbar_pages
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.media.Image
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -21,12 +24,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.ColorFilter.Companion.tint
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
@@ -78,10 +79,14 @@ fun DetailedRecipesScreen(navController: NavHostController = rememberNavControll
 
         ) {
             Column {
+                val imageData = Base64.decode(sharedViewModel.DetailedRecipe.value?.resep?.Foto, Base64.DEFAULT);
 
+                val bitmap: Bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.size)
+
+                val imageBitmap: ImageBitmap = bitmap.asImageBitmap()
                 Box() {
                     Image(
-                        painter = painterResource(id = R.drawable.pic1homescreen),
+                        imageBitmap,
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()
@@ -314,7 +319,22 @@ fun DetailedRecipesScreen(navController: NavHostController = rememberNavControll
                 fontWeight = FontWeight.Bold,
                 fontStyle = FontStyle(10),
                 fontSize = 20.sp,)
-            Text(text = sharedViewModel.DetailedRecipe.value?.resep?.Steps.toString())
+
+            var steps = ArrayList<String>()
+            var start = 0
+            for(i in 0..sharedViewModel.DetailedRecipe.value?.resep?.Steps.toString().length-1){
+                if(sharedViewModel.DetailedRecipe.value?.resep?.Steps.toString().get(i) == ','){
+                    steps.add(sharedViewModel.DetailedRecipe.value?.resep?.Steps.toString().substring(start, i))
+                    start = i+2
+                }
+            }
+
+            Column() {
+                for (i in 0..steps.size-1){
+                    Text(text = steps.get(i))
+                    Log.d(i.toString(),steps.get(i))
+                }
+            }
 
             Text(text = "Pictures",
                 fontWeight = FontWeight.Bold,

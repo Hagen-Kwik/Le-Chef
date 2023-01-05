@@ -227,7 +227,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),
 
                 var i = 0
                 for (resep in sharedViewModel.RecipeTrending.value?.Resep!!) {
-                    if (i < 4) {
+                    if (i < 7) {
                         Card(
                             modifier = Modifier
                                 .padding(10.dp)
