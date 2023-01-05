@@ -58,7 +58,7 @@ fun searchByIngredientsScreen(
     var searchbar = remember { mutableStateOf("") }
 
 
-    LaunchedEffect(key1 = SearchByIngredientViewModel.changedToSearchRecipe.collectAsState(false).value){
+    LaunchedEffect(key1 = SearchByIngredientViewModel.changedToSearchRecipe.collectAsState(false).value) {
         if (SearchByIngredientViewModel.changedToSearchRecipe.value) {
             SearchByIngredientViewModel.searchRecipe.value?.let { sharedViewModel.AddSearchRecipe(it) }
             SearchByIngredientViewModel.changedToSearchRecipe.value = false
@@ -141,127 +141,130 @@ fun searchByIngredientsScreen(
 
         var i = 0
         Column() {
+            LazyVerticalGrid(
+                cells = GridCells.Fixed(2),
+                verticalArrangement = Arrangement.spacedBy(15.dp),
+                horizontalArrangement = Arrangement.spacedBy(15.dp),
+                modifier = Modifier.padding(20.dp)
 
-        }
-        LazyVerticalGrid(
-            cells = GridCells.Fixed(2),
-            verticalArrangement = Arrangement.spacedBy(15.dp),
-            horizontalArrangement = Arrangement.spacedBy(15.dp),
-            modifier = Modifier.padding(20.dp)
+            ) {
+                items(sharedViewModel.IngredientsTrending.value?.Bahan!!.size) {
+                    //cardview here
 
-        ) {
-            items(sharedViewModel.IngredientsTrending.value?.Bahan!!.size) {
-                //cardview here
+                    Card() {
+                        val imageData =
+                            Base64.decode(sharedViewModel.IngredientsTrending.value?.Bahan!!.get(i).Foto,
+                                Base64.DEFAULT);
 
-                Card() {
-                    val imageData = Base64.decode(sharedViewModel.IngredientsTrending.value?.Bahan!!.get(i).Foto, Base64.DEFAULT);
+                        val bitmap: Bitmap =
+                            BitmapFactory.decodeByteArray(imageData, 0, imageData.size)
 
-                    val bitmap: Bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.size)
+                        val imageBitmap: ImageBitmap = bitmap.asImageBitmap()
 
-                    val imageBitmap: ImageBitmap = bitmap.asImageBitmap()
-
-                    Image(
-                        imageBitmap,
-                        contentDescription = "ingridient",
-                        Modifier
-                            .height(screenWidth / 3)
-                            .width(screenWidth / 3),
-                        contentScale = ContentScale.Crop,
-                    )
-                    Row(
+                        Image(
+                            imageBitmap,
+                            contentDescription = "ingridient",
+                            Modifier
+                                .height(screenWidth / 3)
+                                .width(screenWidth / 3),
+                            contentScale = ContentScale.Crop,
+                        )
+                        Row(
                             verticalAlignment = Alignment.Bottom,
                             modifier = Modifier
                                 .height(screenWidth / 3)
                                 .width(screenWidth / 3)
-                     ) {
-                        Row(
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            modifier = Modifier.alpha(0.8f)
-                            .background(Color.Gray)
-                                .fillMaxWidth()
-                                .padding(start = 10.dp, end = 10.dp)
-                                .clickable {
-                                    //add item ke arraay list disini
-                                    SearchByIngredientViewModel.addBahanToArray(sharedViewModel.IngredientsTrending.value?.Bahan!!.get(i).Namabahan)
-                                }
                         ) {
-                            Text(text = sharedViewModel.IngredientsTrending.value?.Bahan!!.get(i).Namabahan)
-                            i++
-                            Icon(
-                                imageVector = Icons.Rounded.Add,
-                                contentDescription = null,
-                                tint = Color.Black,
-                            )
+                            Row(
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                modifier = Modifier.alpha(0.8f)
+                                    .background(Color.Gray)
+                                    .fillMaxWidth()
+                                    .padding(start = 10.dp, end = 10.dp)
+                                    .clickable {
+                                        //add item ke arraay list disini
+                                        SearchByIngredientViewModel.addBahanToArray(sharedViewModel.IngredientsTrending.value?.Bahan!!.get(
+                                            i).Namabahan)
+                                    }
+                            ) {
+                                Text(text = sharedViewModel.IngredientsTrending.value?.Bahan!!.get(i).Namabahan)
+                                i++
+                                Icon(
+                                    imageVector = Icons.Rounded.Add,
+                                    contentDescription = null,
+                                    tint = Color.Black,
+                                )
+                            }
                         }
                     }
                 }
             }
-        }
 
-        Box(contentAlignment = Alignment.BottomCenter,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(5.dp)
-        ){
-            Row(
-                verticalAlignment = Alignment.Bottom,
+            Box(contentAlignment = Alignment.BottomCenter,
                 modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly
-
+                    .fillMaxSize()
+                    .padding(5.dp)
             ) {
-                // see items
-                Column(
+                Row(
+                    verticalAlignment = Alignment.Bottom,
                     modifier = Modifier
-                        .clickable {
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+
+                ) {
+                    // see items
+                    Column(
+                        modifier = Modifier
+                            .clickable {
 //                searchbar.value =
-                        },
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
+                            },
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
 
 
-                    ) {
-                    Icon(imageVector = Icons.Outlined.List, contentDescription = null,
+                        ) {
+                        Icon(imageVector = Icons.Outlined.List, contentDescription = null,
+                            modifier = Modifier
+                                .scale(1.5f)
+                        )
+
+                        Text(text = "See Items")
+                    }
+
+                    // items in pot
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
+
+                        ) {
+                        Image(painter = painterResource(id = R.drawable.pot_empty),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .height(80.dp)
+                        )
+
+                        Text(text = "Items in Pot: 0")
+                    }
+
+                    // search
+                    Column(
                         modifier = Modifier
-                            .scale(1.5f)
-                    )
-
-                    Text(text = "See Items")
-                }
-
-                // items in pot
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-
-                    ) {
-                    Image(painter = painterResource(id = R.drawable.pot_empty),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .height(80.dp)
-                    )
-
-                    Text(text = "Items in Pot: 0")
-                }
-
-                // search
-                Column(
-                    modifier = Modifier
-                        .clickable {
+                            .clickable {
 //                searchbar.value =
 //                        navController.navigate(NavigationEnum.searchRecipesScreen.name)
-                            SearchByIngredientViewModel.searchRecipe(COOKIE.getCookie)
-                        },
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
+                                SearchByIngredientViewModel.searchRecipe(COOKIE.getCookie)
+                            },
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
 
-                    ) {
-                    Icon(imageVector = Icons.Outlined.Search, contentDescription = null,
-                        modifier = Modifier
-                            .scale(1.5f)
-                    )
+                        ) {
+                        Icon(imageVector = Icons.Outlined.Search, contentDescription = null,
+                            modifier = Modifier
+                                .scale(1.5f)
+                        )
 
-                    Text(text = "search")
+                        Text(text = "search")
+                    }
                 }
             }
         }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64
+import android.util.Log
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -53,6 +54,11 @@ fun LikedRecipesScreen(
             navController.navigate(NavigationEnum.DetailedRecipesScreen.name)
         }
     }
+
+    LaunchedEffect(key1 = sharedViewModel.SavedRecipe.collectAsState().value) {
+
+    }
+
 
     val ScrollState = rememberScrollState()
     var searchbar = remember { mutableStateOf("") }
