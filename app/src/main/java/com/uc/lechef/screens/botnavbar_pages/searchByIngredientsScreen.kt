@@ -142,7 +142,6 @@ fun searchByIngredientsScreen(
 //    give items here
         }
 
-        var i = 0
         Column() {
             LazyVerticalGrid(
                 cells = GridCells.Fixed(2),
@@ -184,12 +183,10 @@ fun searchByIngredientsScreen(
                                     .padding(start = 10.dp, end = 10.dp)
                                     .clickable {
                                         //add item ke arraay list disini
-                                        SearchByIngredientViewModel.addBahanToArray(sharedViewModel.IngredientsTrending.value?.Bahan!!.get(
-                                            i).Namabahan)
+                                        SearchByIngredientViewModel.addBahanToArray(bahan.Namabahan)
                                     }
                             ) {
                                 Text(text = bahan.Namabahan)
-                                i++
                                 Icon(
                                     imageVector = Icons.Rounded.Add,
                                     contentDescription = null,
