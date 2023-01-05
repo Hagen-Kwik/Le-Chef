@@ -127,25 +127,7 @@ fun MyRecipesScreen(navController: NavHostController = rememberNavController(),
                             )
                         }
                     }
-                    Box(modifier = Modifier
-                        .padding(0.dp, 0.dp, 20.dp, 80.dp)
-                        .fillMaxSize()
-                    ) {
-                        FloatingActionButton(
-                            onClick = {
-                                navController.navigate(NavigationEnum.uploadRecipeOneScreen.name)
-                            },
-                            shape = CircleShape,
-                            elevation = FloatingActionButtonDefaults.elevation(2.dp, 3.dp),
-                            modifier = Modifier.align(Alignment.BottomEnd)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Rounded.Add,
-                                contentDescription = null,
-                                tint = Color.White,
-                            )
-                        }
-                    }
+
                 }
 
 
@@ -259,6 +241,25 @@ fun MyRecipesScreen(navController: NavHostController = rememberNavController(),
                                     }
 
                                 }
+                            }
+                        }
+                        Box(modifier = Modifier
+                            .padding(0.dp, 0.dp, 20.dp, 80.dp)
+                            .fillMaxSize()
+                        ) {
+                            FloatingActionButton(
+                                onClick = {
+                                    navController.navigate(NavigationEnum.uploadRecipeOneScreen.name)
+                                },
+                                shape = CircleShape,
+                                elevation = FloatingActionButtonDefaults.elevation(2.dp, 3.dp),
+                                modifier = Modifier.align(Alignment.BottomEnd)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Rounded.Add,
+                                    contentDescription = null,
+                                    tint = Color.White,
+                                )
                             }
                         }
                     }
