@@ -16,12 +16,15 @@ import androidx.navigation.NavHostController
 import com.uc.lechef.Navigation.NavigationEnum
 import com.uc.lechef.R
 import com.uc.lechef.screens.ViewModel.HomeScreenViewModel
+import com.uc.lechef.screens.ViewModel.MyrecipeScreenViewModel
 import com.uc.lechef.screens.ViewModel.sharedAllScreenViewModel
 
 @Composable
 fun botnavbar(navController: NavHostController,
               sharedViewModel: sharedAllScreenViewModel,
-              HomeScreenViewModel: HomeScreenViewModel
+              HomeScreenViewModel: HomeScreenViewModel,
+              MyrecipeViewModel: MyrecipeScreenViewModel,
+
 
 ) {
     Scaffold(
@@ -54,7 +57,7 @@ fun botnavbar(navController: NavHostController,
                 modifier = Modifier.padding(padding)
             ) {
                 if (currentSelectedScreenId.value == 0) HomeScreen(navController, sharedViewModel, HomeScreenViewModel)
-                else if (currentSelectedScreenId.value == 1) MyRecipesScreen(navController,sharedViewModel)
+                else if (currentSelectedScreenId.value == 1) MyRecipesScreen(navController,sharedViewModel, MyrecipeViewModel)
                 else if (currentSelectedScreenId.value == 2) LikedRecipesScreen(navController)
                 else if (currentSelectedScreenId.value == 3) ProfileScreen(navController, sharedViewModel)
             }

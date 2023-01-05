@@ -1,9 +1,6 @@
 package com.uc.lechef.repository
 
-import com.uc.lechef.Models.ForMakingRecipe
-import com.uc.lechef.Models.TempForRecipeScreenBahan
-import com.uc.lechef.Models.User
-import com.uc.lechef.Models.createsavedrecipe
+import com.uc.lechef.Models.*
 import com.uc.lechef.retrofit.EndPointApi
 import okhttp3.RequestBody
 import javax.inject.Inject
@@ -30,8 +27,8 @@ class userRepository @Inject constructor(
 suspend fun createResep(authkey: String, ForMakingRecipe: ForMakingRecipe) = api.createResep(authkey, ForMakingRecipe)
 
 
-    suspend fun createListBahan(authkey: String, TempForRecipeScreenBahan: TempForRecipeScreenBahan) = api.createListBahan(authkey,
-        TempForRecipeScreenBahan)
+    suspend fun createListBahan(authkey: String, ForUploadToListBahan: ForUploadToListBahan) = api.createListBahan(authkey,
+       ForUploadToListBahan)
 
     suspend fun addtosaved(authkey:String,createsavedrecipe: createsavedrecipe) = api.createSavedRecipe(authkey,createsavedrecipe)
     suspend fun getsavedbyuser(id: Int, authkey:String) = api.getsavedbyuser(id, authkey)

@@ -71,7 +71,6 @@ class loginScreenViewModel @Inject constructor(private val repository: userRepos
                         repository.getResepbyUser(userid.toInt(),token)
                             .let { response ->
                                 Resepbyuser.value = response.body()
-                                Log.d("resep", response.body().toString())
                             }
 
                         _logged.value = true

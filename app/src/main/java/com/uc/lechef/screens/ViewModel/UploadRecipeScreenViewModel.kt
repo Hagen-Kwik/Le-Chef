@@ -5,6 +5,7 @@ import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uc.lechef.Models.ForMakingRecipe
+import com.uc.lechef.Models.ForUploadToListBahan
 import com.uc.lechef.Models.ResepbyUser
 import com.uc.lechef.Models.TempForRecipeScreenBahan
 import com.uc.lechef.repository.userRepository
@@ -94,15 +95,16 @@ class UploadRecipeScreenViewModel @Inject constructor(private val repository: us
                             }
 
                             for (item in allBahanArray) {
+                                Log.d("ITEMSSSSSSSSSSS", item.toString())
+                                Log.d("FORIDRESEPP", forIdResep.toString())
 
-                                repository.createListBahan(cookie, item)
+                                repository.createListBahan(cookie, ForUploadToListBahan(item.bahanID, item.jumlahbahan,forIdResep))
                             }
 
 
                             repository.getResepbyUser(id.toInt(),cookie)
                                 .let { response ->
                                     ResepbyTHISuser.value = response.body()
-                                    Log.d("resep", response.body().toString())
                                 }
 
                             FINISHED.value = true
