@@ -17,6 +17,7 @@ fun AppNavigation(sharedViewModel: sharedAllScreenViewModel = androidx.lifecycle
                   homeViewModel: HomeScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
                   UploadRecipeViewModel: UploadRecipeScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
                   MyrecipeViewModel: MyrecipeScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
+                  LikedRecipeViewModel: LikedRecipeScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
 ) {
 
 
@@ -36,7 +37,7 @@ fun AppNavigation(sharedViewModel: sharedAllScreenViewModel = androidx.lifecycle
         }
 
         composable(NavigationEnum.botnavbar.name){
-            botnavbar(navController,sharedViewModel,homeViewModel, MyrecipeViewModel)
+            botnavbar(navController,sharedViewModel,homeViewModel, MyrecipeViewModel, LikedRecipeViewModel)
         }
 
         composable(NavigationEnum.uploadRecipeOneScreen.name){

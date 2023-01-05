@@ -69,6 +69,12 @@ fun LoginPage (navController: NavController, viewModel: loginScreenViewModel, sh
                 }
             }
 
+            viewModel.UserSavedRecipe.value.let {
+                if (it != null) {
+                    sharedViewModel.addtosaved(it)
+                }
+            }
+
             USERID.setUserId(viewModel.userid)
             COOKIE.setCookie(viewModel.token)
 

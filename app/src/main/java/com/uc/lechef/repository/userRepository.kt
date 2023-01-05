@@ -32,4 +32,9 @@ suspend fun createResep(authkey: String, ForMakingRecipe: ForMakingRecipe) = api
 
     suspend fun addtosaved(authkey:String,createsavedrecipe: createsavedrecipe) = api.createSavedRecipe(authkey,createsavedrecipe)
     suspend fun getsavedbyuser(id: Int, authkey:String) = api.getsavedbyuser(id, authkey)
+
+    suspend fun getUserSavedRecipe(id: Int, authkey:String) = api.getUserSavedRecipe(id, authkey)
+
+
+
 }

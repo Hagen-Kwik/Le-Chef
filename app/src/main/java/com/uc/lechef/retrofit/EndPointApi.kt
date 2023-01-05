@@ -92,6 +92,13 @@ interface EndPointApi {
         @Body data: ForUploadToListBahan,
     ):retrofit2.Response<status>
 
+
+    @GET("/savedrecipe/{id}")
+    suspend fun getUserSavedRecipe(
+        @Path("id") id: Int,
+        @Header("Cookie") token:String
+    ): retrofit2.Response<SavedRecipe>
+
 //    @POST("/users")
 //    suspend fun postUserData(
 //        @Body user: User

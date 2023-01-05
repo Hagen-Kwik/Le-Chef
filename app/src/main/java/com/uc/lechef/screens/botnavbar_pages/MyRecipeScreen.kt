@@ -50,7 +50,6 @@ fun MyRecipesScreen(navController: NavHostController = rememberNavController(),
     val screenHeight = configuration.screenHeightDp.dp
     val screenWidth = configuration.screenWidthDp.dp
 
-    val ScrollState = rememberScrollState()
     var searchbar = remember { mutableStateOf("") }
 
     val context = LocalContext.current

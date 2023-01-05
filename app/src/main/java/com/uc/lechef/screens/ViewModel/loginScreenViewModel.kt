@@ -25,6 +25,7 @@ class loginScreenViewModel @Inject constructor(private val repository: userRepos
     var RecipesAtHome: MutableStateFlow<resepAll?> = MutableStateFlow(null)
     var curUser: MutableStateFlow<GetUser?> = MutableStateFlow(null)
     var Resepbyuser: MutableStateFlow<ResepbyUser?> = MutableStateFlow(null)
+    var UserSavedRecipe: MutableStateFlow<SavedRecipe?> = MutableStateFlow(null)
 
 
     private var _logged  = MutableStateFlow(false)
@@ -71,6 +72,11 @@ class loginScreenViewModel @Inject constructor(private val repository: userRepos
                         repository.getResepbyUser(userid.toInt(),token)
                             .let { response ->
                                 Resepbyuser.value = response.body()
+                            }
+
+                        repository.getUserSavedRecipe(userid.toInt() ,token)
+                            .let { response ->
+                                UserSavedRecipe.value = response.body()
                             }
 
                         _logged.value = true
