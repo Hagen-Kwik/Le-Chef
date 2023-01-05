@@ -18,9 +18,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.rounded.Add
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -52,6 +50,12 @@ fun MyRecipesScreen(navController: NavHostController = rememberNavController(),
 
     val ScrollState = rememberScrollState()
     var searchbar = remember { mutableStateOf("") }
+
+
+    LaunchedEffect(key1 = sharedViewModel.ResepbyuserFORCHECK.collectAsState(initial = false).value){
+            sharedViewModel.ResepbyuserFORCHECK.value = false
+
+    }
 
     LazyColumn() {
         stickyHeader {
@@ -152,6 +156,8 @@ fun MyRecipesScreen(navController: NavHostController = rememberNavController(),
                                             modifier = Modifier
                                                 .scale(3f)
                                         )
+                                        Spacer(modifier = Modifier.width(5.dp))
+
                                         //text time taken
                                         Text(text = item.Timetaken)
                                     }
@@ -168,6 +174,8 @@ fun MyRecipesScreen(navController: NavHostController = rememberNavController(),
                                             modifier = Modifier
                                                 .scale(3f)
                                         )
+                                        Spacer(modifier = Modifier.width(5.dp))
+
                                         //text rating
                                         Text(text = item.Rating.toString())
                                     }

@@ -5,6 +5,7 @@ import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uc.lechef.Models.ForMakingRecipe
+import com.uc.lechef.Models.ResepbyUser
 import com.uc.lechef.Models.TempForRecipeScreenBahan
 import com.uc.lechef.repository.userRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class UploadRecipeScreenViewModel @Inject constructor(private val repository: userRepository,
 ): ViewModel() {
+
+    var FINISHED  = MutableStateFlow(false)
 
     var recipe_name = ""
     var recipe_time_needed = ""
@@ -63,10 +66,7 @@ class UploadRecipeScreenViewModel @Inject constructor(private val repository: us
         } else {
             allBahanArray.add(TempForRecipeScreenBahan(bahanID, jumlahbahan, nama))
         }
-
         _arraylistBahanMutableState.value = true
-
-
 
     }
 
@@ -77,7 +77,7 @@ class UploadRecipeScreenViewModel @Inject constructor(private val repository: us
     }
 
     var forIdResep = -1
-    val mediaType = "application/json; charset=utf-8".toMediaType()
+    var ResepbyTHISuser: MutableStateFlow<ResepbyUser?> = MutableStateFlow(null)
 
     fun createNewRecipe(COOKIE: Flow<String?>, USERID: Flow<String?>, ) {
         viewModelScope.launch {
@@ -85,27 +85,6 @@ class UploadRecipeScreenViewModel @Inject constructor(private val repository: us
                 if (cookie != null) {
                     USERID.collect { id ->
                         if (id != null) {
-
-//                            val json = JSONObject()
-//                            json.put("Created_by", id.toInt())
-//                            json.put("jumlahrating", 0)
-//                            json.put("Rating", 0)
-//                            json.put("Description", recipe_description)
-//                            json.put("Judul", recipe_name)
-//                            json.put("Portionsize", recipe_portion)
-//                            json.put("Foto", photo)
-//                            json.put("Video", "")
-//                            json.put("Timetaken", recipe_time_needed)
-//                            json.put("Steps", recipe_instructions)
-//
-//                            val requestBody = json.toString().toRequestBody(mediaType)
-//
-//                            Log.d("json", json.toString())
-//                            Log.d("cookie", cookie)
-
-
-
-
                             repository.createResep(cookie, ForMakingRecipe(id.toInt(),
                                 recipe_description,photo,recipe_name,recipe_portion,0,
                                 recipe_instructions,recipe_time_needed,"",0)
@@ -115,16 +94,19 @@ class UploadRecipeScreenViewModel @Inject constructor(private val repository: us
                             }
 
                             for (item in allBahanArray) {
-                                val json = JSONObject()
-                                json.put("Resep_id", id.toInt())
-                                json.put("Bahan_id", item.bahanID)
-                                json.put("Jumlahbahan", item.jumlahbahan)
 
-
-                                val requestBody = json.toString().toRequestBody(mediaType)
-
-                                repository.createListBahan(cookie, requestBody)
+                                repository.createListBahan(cookie, item)
                             }
+
+
+                            repository.getResepbyUser(id.toInt(),cookie)
+                                .let { response ->
+                                    ResepbyTHISuser.value = response.body()
+                                    Log.d("resep", response.body().toString())
+                                }
+
+                            FINISHED.value = true
+
                         }
                     }
                 }

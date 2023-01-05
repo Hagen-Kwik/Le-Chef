@@ -89,7 +89,7 @@ interface EndPointApi {
     @POST("/listBahan")
     suspend fun createListBahan(
         @Header("Cookie") token:String,
-        @Body data: RequestBody,
+        @Body data: TempForRecipeScreenBahan,
     ):retrofit2.Response<status>
 
 //    @POST("/users")
