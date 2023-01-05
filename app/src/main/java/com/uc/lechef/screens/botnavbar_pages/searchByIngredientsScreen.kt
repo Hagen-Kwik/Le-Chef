@@ -58,6 +58,7 @@ fun searchByIngredientsScreen(navController: NavHostController = rememberNavCont
 
     Column(modifier = Modifier
         .fillMaxSize()) {
+
         LazyColumn() {
             stickyHeader {
 
