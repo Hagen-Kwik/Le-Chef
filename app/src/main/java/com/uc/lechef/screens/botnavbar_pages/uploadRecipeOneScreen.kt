@@ -225,8 +225,19 @@ fun uploadRecipeOneScreen(navController: NavHostController = rememberNavControll
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(0.dp, 5.dp)
+        )
 
+        val calories = remember { mutableStateOf(0) }
 
+        Text(text = "Recipe Calories")
+        TextField(value = calories.value.toString(), onValueChange = {
+            calories.value = it.toInt()
+        },
+            placeholder = { Text(" e.g 1000 cal") },
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(0.dp, 5.dp)
         )
 
         val instruc = remember { mutableStateOf("") }
@@ -244,7 +255,7 @@ fun uploadRecipeOneScreen(navController: NavHostController = rememberNavControll
         )
         
         Button(onClick = {
-            UploadRecipeViewModel.addEachAttribute(name.value, desc.value, time.value, porsi.value, instruc.value)
+            UploadRecipeViewModel.addEachAttribute(name.value, desc.value, time.value,calories.value, porsi.value, instruc.value)
             navController.navigate(NavigationEnum.uploadRecipeTwoScreen.name)
         },
             modifier = Modifier.fillMaxWidth(),

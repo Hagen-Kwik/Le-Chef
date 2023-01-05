@@ -6,6 +6,7 @@ data class ForMakingRecipe(
     val Foto: String,
     val Judul: String,
     val Portionsize: Int,
+    val Totalcal: Int,
     val Rating: Int,
     val Steps: String,
     val Timetaken: String,

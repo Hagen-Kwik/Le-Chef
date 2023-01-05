@@ -29,6 +29,7 @@ class UploadRecipeScreenViewModel @Inject constructor(private val repository: us
     var recipe_instructions = ""
     var recipe_description = ""
     var recipe_portion = 0
+    var recipe_calories = 0
     var photo = ""
     var video = ""
 
@@ -36,6 +37,7 @@ class UploadRecipeScreenViewModel @Inject constructor(private val repository: us
         name: String,
         desc: String,
         time: String,
+        calories : Int,
         porsi: Int,
         intsruc: String
     ) {
@@ -44,6 +46,7 @@ class UploadRecipeScreenViewModel @Inject constructor(private val repository: us
          recipe_instructions = intsruc
          recipe_description = desc
          recipe_portion = porsi
+        recipe_calories = calories
     }
 
     fun addfrompage2(
@@ -87,7 +90,7 @@ class UploadRecipeScreenViewModel @Inject constructor(private val repository: us
                     USERID.collect { id ->
                         if (id != null) {
                             repository.createResep(cookie, ForMakingRecipe(id.toInt(),
-                                recipe_description,photo,recipe_name,recipe_portion,0,
+                                recipe_description,photo,recipe_name,recipe_portion,recipe_calories,0,
                                 recipe_instructions,recipe_time_needed,"",0)
                             ).let { response ->
                                 forIdResep = response.body()?.id ?: -1
