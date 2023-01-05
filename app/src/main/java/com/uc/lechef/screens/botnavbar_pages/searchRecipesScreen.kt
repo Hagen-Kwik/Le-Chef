@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
@@ -38,8 +39,7 @@ import com.uc.lechef.screens.ViewModel.sharedAllScreenViewModel
 fun searchRecipesScreen(
     navController: NavHostController = rememberNavController(),
     sharedViewModel: sharedAllScreenViewModel,
-    SearchRecipeViewModel: SearchRecipeScreenViewModel,)
-{
+    SearchRecipeViewModel: SearchRecipeScreenViewModel,) {
     val configuration = LocalConfiguration.current
 
     val screenHeight = configuration.screenHeightDp.dp
@@ -49,7 +49,8 @@ fun searchRecipesScreen(
         LazyColumn() {
             stickyHeader {
 
-                Row(horizontalArrangement = Arrangement.SpaceBetween,
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(10.dp)
@@ -59,7 +60,7 @@ fun searchRecipesScreen(
                         contentDescription = null,
                         tint = Color.Black,
                         modifier = Modifier.clickable {
-                        navController.popBackStack()
+                            navController.popBackStack()
 //                            navController.navigate(NavigationEnum.DetailedRecipesScreen.name)
 
                         }
@@ -70,25 +71,25 @@ fun searchRecipesScreen(
                     Spacer(modifier = Modifier.width(0.dp))
                 }
             }
-//    give items here
-
         }
 
-        var i = 0
         LazyVerticalGrid(
             cells = GridCells.Fixed(2),
             verticalArrangement = Arrangement.spacedBy(15.dp),
             horizontalArrangement = Arrangement.spacedBy(15.dp),
+            modifier = Modifier.padding(20.dp).height(screenHeight * 7 / 10)
 
-            modifier = Modifier.padding(20.dp)
         ) {
-            items(sharedViewModel.SearchRecipe.value?.resep!!.size) {
-                //cardview here
-
+            items(sharedViewModel.IngredientsTrending.value?.Bahan!!) { bahan ->
                 Card() {
-                    val imageData = Base64.decode(sharedViewModel.SearchRecipe.value?.resep!!.get(i).Foto, Base64.DEFAULT);
+                    val imageData =
+                        Base64.decode(
+                            bahan.Foto,
+                            Base64.DEFAULT
+                        );
 
-                    val bitmap: Bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.size)
+                    val bitmap: Bitmap =
+                        BitmapFactory.decodeByteArray(imageData, 0, imageData.size)
 
                     val imageBitmap: ImageBitmap = bitmap.asImageBitmap()
 
@@ -108,14 +109,15 @@ fun searchRecipesScreen(
                     ) {
                         Row(
                             horizontalArrangement = Arrangement.SpaceBetween,
-                            modifier = Modifier
-                                .alpha(0.8f)
+                            modifier = Modifier.alpha(0.8f)
                                 .background(Color.Gray)
                                 .fillMaxWidth()
                                 .padding(start = 10.dp, end = 10.dp)
+                                .clickable {
+
+                                }
                         ) {
-                            Text(text = sharedViewModel.SearchRecipe.value?.resep!!.get(i).Judul)
-                            i++
+                            Text(text = bahan.Namabahan)
                             Icon(
                                 imageVector = Icons.Rounded.Add,
                                 contentDescription = null,
@@ -127,5 +129,4 @@ fun searchRecipesScreen(
             }
         }
     }
-
 }
