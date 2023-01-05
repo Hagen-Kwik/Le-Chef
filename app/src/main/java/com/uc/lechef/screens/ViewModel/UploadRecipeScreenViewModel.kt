@@ -5,9 +5,11 @@ import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uc.lechef.Models.ForMakingRecipe
+import com.uc.lechef.Models.TempForRecipeScreenBahan
 import com.uc.lechef.repository.userRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -49,16 +51,29 @@ class UploadRecipeScreenViewModel @Inject constructor(private val repository: us
     //FOR RESEP ID HARUS BIKIN RESEP E SEK
     var FORARRAYresepID = -1
 
-    var eachBahanArray = arrayOfNulls<String>(2)
-    var allBahanArray = arrayListOf<Array<String?>>()
+    var allBahanArray = arrayListOf<TempForRecipeScreenBahan>()
 
-    fun addBahanToEachArray(bahanID: Int, jumlahbahan: String) {
-        eachBahanArray[0] = bahanID.toString()
+    private var _arraylistBahanMutableState  = MutableStateFlow(false)
+    val arraylistBahanMutableState = _arraylistBahanMutableState
+
+    fun addBahanToEachArray(bahanID: Int, jumlahbahan: String, nama :String) {
+
         if (jumlahbahan == ""){
-            eachBahanArray[1] = "secukupnya"
+            allBahanArray.add(TempForRecipeScreenBahan(bahanID, "Secukupnya", nama))
+        } else {
+            allBahanArray.add(TempForRecipeScreenBahan(bahanID, jumlahbahan, nama))
         }
-        eachBahanArray[1] = jumlahbahan
-        allBahanArray.add(eachBahanArray)
+
+        _arraylistBahanMutableState.value = true
+
+
+
+    }
+
+
+    fun deleteBahanFromArray(int: Int){
+        allBahanArray.removeAt(int)
+        _arraylistBahanMutableState.value = true
     }
 
     var forIdResep = -1
@@ -102,8 +117,9 @@ class UploadRecipeScreenViewModel @Inject constructor(private val repository: us
                             for (item in allBahanArray) {
                                 val json = JSONObject()
                                 json.put("Resep_id", id.toInt())
-                                item[0]?.let { json.put("Bahan_id", it.toInt()) }
-                                json.put("Jumlahbahan", item[1].toString())
+                                json.put("Bahan_id", item.bahanID)
+                                json.put("Jumlahbahan", item.jumlahbahan)
+
 
                                 val requestBody = json.toString().toRequestBody(mediaType)
 
