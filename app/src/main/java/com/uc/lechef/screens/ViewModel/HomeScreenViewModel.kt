@@ -43,7 +43,9 @@ class HomeScreenViewModel @Inject constructor(private val repository: userReposi
         }
     }
 
-    fun addtosaved(resepid: Int,userid: Int, COOKIE: Flow<String?>) {
+    var UserSavedRecipe: MutableStateFlow<SavedRecipePerUser?> = MutableStateFlow(null)
+
+    fun addtosaved(resepid: Int,userid: Int, COOKIE: Flow<String?>,) {
 
         viewModelScope.launch {
             COOKIE.collect{
@@ -51,10 +53,19 @@ class HomeScreenViewModel @Inject constructor(private val repository: userReposi
                     Log.d("created", createsavedrecipe(resepid,userid).toString())
                     repository.addtosaved(
                         it,createsavedrecipe(resepid,userid)
-                    ).let {
-                        _added.value = true
-                    }
+                    )
+
+                    repository.getUserSavedRecipe(userid ,it)
+                        .let { response ->
+                            UserSavedRecipe.value = response.body()
+                            Log.d("HOEMSCREEN VIEWMODEL", response.body().toString())
+                        }
+
+                    _added.value = true
+
                 }
+
+
             }
         }
     }

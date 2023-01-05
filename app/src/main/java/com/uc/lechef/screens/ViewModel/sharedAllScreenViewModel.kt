@@ -63,6 +63,12 @@ class sharedAllScreenViewModel @Inject constructor(private val repository: userR
         _SavedRecipe.value = saved_recipe
     }
 
+    fun emptySaved(){
+        _SavedRecipe.value = null
+    }
+
+
+
     private var _SearchRecipe  = MutableStateFlow<ResepFromBahanSearch?>(null)
     val SearchRecipe = _SearchRecipe
     var SearchRecipeFORCHECK = MutableStateFlow(false)

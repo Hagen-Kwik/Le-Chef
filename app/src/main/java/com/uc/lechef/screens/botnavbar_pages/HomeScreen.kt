@@ -65,8 +65,12 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),
     LaunchedEffect(key1 = HomeScreenViewModel.added.collectAsState().value){
         if (HomeScreenViewModel.added.value) {
             //update the value
-            HomeScreenViewModel.savedrecipe.value
-
+            Log.d("WHAT COMES IN HERE HOMESCREEN", HomeScreenViewModel.UserSavedRecipe.value.toString())
+            if (HomeScreenViewModel.UserSavedRecipe.value?.Saved_recipe?.Resep?.isEmpty() == true){
+                sharedViewModel.emptySaved()
+            } else {
+                sharedViewModel.addtosaved(HomeScreenViewModel.UserSavedRecipe.value!!)
+            }
             HomeScreenViewModel.added.value = false
         }
     }
