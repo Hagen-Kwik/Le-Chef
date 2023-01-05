@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -37,6 +38,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.uc.lechef.Models.Bahan
+import com.uc.lechef.Models.bahanAll
 import com.uc.lechef.Navigation.NavigationEnum
 import com.uc.lechef.R
 import com.uc.lechef.screens.ViewModel.sharedAllScreenViewModel
@@ -46,7 +49,7 @@ import com.uc.lechef.screens.botnavbar_pages.ui.theme.LeChefTheme
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun searchByIngredientsScreen(navController: NavHostController = rememberNavController(),
-                              sharedViewModel: sharedAllScreenViewModel,
+                              sharedViewModel: sharedAllScreenViewModel
 ) {
     val configuration = LocalConfiguration.current
 
@@ -139,11 +142,10 @@ fun searchByIngredientsScreen(navController: NavHostController = rememberNavCont
             
             modifier = Modifier.padding(20.dp)
         ) {
-            items(sharedViewModel.IngredientsTrending.value?.Bahan!!.size) {
-                //cardview here
-
+            var bahans: List<Bahan>
+            items(sharedViewModel.IngredientsTrending.value?.Bahan!!) { bahan ->
                 Card() {
-                    val imageData = Base64.decode(sharedViewModel.IngredientsTrending.value?.Bahan!!.get(i).Foto, Base64.DEFAULT);
+                    val imageData = Base64.decode(bahan.Foto, Base64.DEFAULT);
 
                     val bitmap: Bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.size)
 
@@ -158,19 +160,19 @@ fun searchByIngredientsScreen(navController: NavHostController = rememberNavCont
                         contentScale = ContentScale.Crop,
                     )
                     Row(
-                            verticalAlignment = Alignment.Bottom,
-                            modifier = Modifier
-                                .height(screenWidth / 3)
-                                .width(screenWidth / 3)
-                     ) {
+                        verticalAlignment = Alignment.Bottom,
+                        modifier = Modifier
+                            .height(screenWidth / 3)
+                            .width(screenWidth / 3)
+                    ) {
                         Row(
                             horizontalArrangement = Arrangement.SpaceBetween,
                             modifier = Modifier.alpha(0.8f)
-                            .background(Color.Gray)
+                                .background(Color.Gray)
                                 .fillMaxWidth()
                                 .padding(start = 10.dp, end = 10.dp)
                         ) {
-                            Text(text = sharedViewModel.IngredientsTrending.value?.Bahan!!.get(i).Namabahan)
+                            Text(text = bahan.Namabahan)
                             i++
                             Icon(
                                 imageVector = Icons.Rounded.Add,
@@ -181,6 +183,11 @@ fun searchByIngredientsScreen(navController: NavHostController = rememberNavCont
                     }
                 }
             }
+//            items(sharedViewModel.IngredientsTrending.value?.Bahan!!) {
+//                //cardview here
+//
+//
+//            }
         }
 
         Box(contentAlignment = Alignment.BottomCenter,
@@ -252,8 +259,19 @@ fun searchByIngredientsScreen(navController: NavHostController = rememberNavCont
     }
 }
 
-
-
+//@OptIn(ExperimentalFoundationApi::class)
+//@Composable
+//fun PhotoGrid(photos: List<Bahan>) {
+//    LazyVerticalGrid(
+//        columns = GridCells.Adaptive(minSize = 128.dp)
+//    ) {
+//        var test = photos
+//        var test2: List<Bahan> = test
+//        items(test) { photo ->
+//            PhotoItem(photo)
+//        }
+//    }
+//}
 
 
 
