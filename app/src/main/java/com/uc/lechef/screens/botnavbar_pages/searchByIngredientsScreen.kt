@@ -3,10 +3,8 @@ package com.uc.lechef.screens.botnavbar_pages
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.os.Bundle
 import android.util.Base64
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+import android.util.Log
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
@@ -20,9 +18,7 @@ import androidx.compose.material.icons.outlined.List
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -32,29 +28,43 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.uc.lechef.Navigation.NavigationEnum
 import com.uc.lechef.R
+import com.uc.lechef.helper.StoreUserCookie
+import com.uc.lechef.screens.ViewModel.SearchByIngredientsScreenViewModel
 import com.uc.lechef.screens.ViewModel.sharedAllScreenViewModel
-import com.uc.lechef.screens.botnavbar_pages.ui.theme.LeChefTheme
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun searchByIngredientsScreen(navController: NavHostController = rememberNavController(),
-                              sharedViewModel: sharedAllScreenViewModel,
+fun searchByIngredientsScreen(
+    navController: NavHostController = rememberNavController(),
+    sharedViewModel: sharedAllScreenViewModel,
+    SearchByIngredientViewModel: SearchByIngredientsScreenViewModel,
 ) {
     val configuration = LocalConfiguration.current
 
     val screenHeight = configuration.screenHeightDp.dp
     val screenWidth = configuration.screenWidthDp.dp
 
-    val ScrollState = rememberScrollState()
+    val context = LocalContext.current
+    val COOKIE = StoreUserCookie(context)
+
     var searchbar = remember { mutableStateOf("") }
+
+
+    LaunchedEffect(key1 = SearchByIngredientViewModel.changedToSearchRecipe.collectAsState(false).value){
+        if (SearchByIngredientViewModel.changedToSearchRecipe.value) {
+            SearchByIngredientViewModel.searchRecipe.value?.let { sharedViewModel.AddSearchRecipe(it) }
+            SearchByIngredientViewModel.changedToSearchRecipe.value = false
+            navController.navigate(NavigationEnum.searchRecipesScreen.name)
+        }
+    }
 
     Column(modifier = Modifier
         .fillMaxSize()) {
@@ -128,16 +138,17 @@ fun searchByIngredientsScreen(navController: NavHostController = rememberNavCont
             }
 //    give items here
         }
+
         var i = 0
         Column() {
-            
+
         }
         LazyVerticalGrid(
             cells = GridCells.Fixed(2),
             verticalArrangement = Arrangement.spacedBy(15.dp),
             horizontalArrangement = Arrangement.spacedBy(15.dp),
-            
             modifier = Modifier.padding(20.dp)
+
         ) {
             items(sharedViewModel.IngredientsTrending.value?.Bahan!!.size) {
                 //cardview here
@@ -169,6 +180,10 @@ fun searchByIngredientsScreen(navController: NavHostController = rememberNavCont
                             .background(Color.Gray)
                                 .fillMaxWidth()
                                 .padding(start = 10.dp, end = 10.dp)
+                                .clickable {
+                                    //add item ke arraay list disini
+                                    SearchByIngredientViewModel.addBahanToArray(sharedViewModel.IngredientsTrending.value?.Bahan!!.get(i).Namabahan)
+                                }
                         ) {
                             Text(text = sharedViewModel.IngredientsTrending.value?.Bahan!!.get(i).Namabahan)
                             i++
@@ -234,7 +249,8 @@ fun searchByIngredientsScreen(navController: NavHostController = rememberNavCont
                     modifier = Modifier
                         .clickable {
 //                searchbar.value =
-                        navController.navigate(NavigationEnum.searchRecipesScreen.name)
+//                        navController.navigate(NavigationEnum.searchRecipesScreen.name)
+                            SearchByIngredientViewModel.searchRecipe(COOKIE.getCookie)
                         },
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,

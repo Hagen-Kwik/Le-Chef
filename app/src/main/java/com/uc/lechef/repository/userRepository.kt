@@ -35,6 +35,8 @@ suspend fun createResep(authkey: String, ForMakingRecipe: ForMakingRecipe) = api
 
     suspend fun getUserSavedRecipe(id: Int, authkey:String) = api.getUserSavedRecipe(id, authkey)
 
+    suspend fun getResepFromBahan(ForUploadToFindingResepWithBahan: ForUploadToFindingResepWithBahan, authkey:String)
+    = api.getResepFromBahan(authkey, ForUploadToFindingResepWithBahan)
 
 
 }

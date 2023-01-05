@@ -25,7 +25,7 @@ class loginScreenViewModel @Inject constructor(private val repository: userRepos
     var RecipesAtHome: MutableStateFlow<resepAll?> = MutableStateFlow(null)
     var curUser: MutableStateFlow<GetUser?> = MutableStateFlow(null)
     var Resepbyuser: MutableStateFlow<ResepbyUser?> = MutableStateFlow(null)
-    var UserSavedRecipe: MutableStateFlow<SavedRecipe?> = MutableStateFlow(null)
+    var UserSavedRecipe: MutableStateFlow<SavedRecipePerUser?> = MutableStateFlow(null)
 
 
     private var _logged  = MutableStateFlow(false)
