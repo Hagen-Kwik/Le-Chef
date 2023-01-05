@@ -25,6 +25,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import com.uc.lechef.Navigation.NavigationEnum
+import com.uc.lechef.helper.StoreUserID
 import com.uc.lechef.screens.ViewModel.sharedAllScreenViewModel
 
 @SuppressLint("StateFlowValueCalledInComposition")
@@ -213,33 +215,33 @@ fun ProfileScreen(navController: NavHostController = rememberNavController(),
                     }
                 }
 
-                Card(
-                    elevation = 8.dp,
-                    shape = RoundedCornerShape(10.dp),
-                    modifier = Modifier
-                        .width(screenWidth * 19 / 20)
-                        .padding(start = 10.dp, end = 10.dp, bottom = 20.dp)
-                        .clickable {
-                            popnameControl = true
-                        }
-                ){
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_baseline_mail_outline_24),
-                            contentDescription = "homePicture",
-                            contentScale = ContentScale.Fit,
-                            modifier = Modifier
-                                .height(50.dp)
-                                .width(50.dp)
-                                .padding(9.dp)
-                        )
-                        Text(
-                            text = "Change Email/Username",
-                            fontStyle = FontStyle(10),
-                            fontSize = 23.sp,
-                        )
-                    }
-                }
+//                Card(
+//                    elevation = 8.dp,
+//                    shape = RoundedCornerShape(10.dp),
+//                    modifier = Modifier
+//                        .width(screenWidth * 19 / 20)
+//                        .padding(start = 10.dp, end = 10.dp, bottom = 20.dp)
+//                        .clickable {
+//                            popnameControl = true
+//                        }
+//                ){
+//                    Row(verticalAlignment = Alignment.CenterVertically) {
+//                        Image(
+//                            painter = painterResource(id = R.drawable.ic_baseline_mail_outline_24),
+//                            contentDescription = "homePicture",
+//                            contentScale = ContentScale.Fit,
+//                            modifier = Modifier
+//                                .height(50.dp)
+//                                .width(50.dp)
+//                                .padding(9.dp)
+//                        )
+//                        Text(
+//                            text = "Change Email/Username",
+//                            fontStyle = FontStyle(10),
+//                            fontSize = 23.sp,
+//                        )
+//                    }
+//                }
 
                 val password = remember { mutableStateOf("") }
                 var popuppasswordControl by remember { mutableStateOf(false) }
@@ -342,6 +344,10 @@ fun ProfileScreen(navController: NavHostController = rememberNavController(),
                     modifier = Modifier
                         .width(screenWidth * 19 / 20)
                         .padding(start = 10.dp, end = 10.dp)
+                        .clickable {
+                        navController.popBackStack(NavigationEnum.loginScreen.name, true)
+                        navController.navigate(NavigationEnum.loginScreen.name)
+                    }
                 ){
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Image(
@@ -357,6 +363,7 @@ fun ProfileScreen(navController: NavHostController = rememberNavController(),
                             text = "Log out",
                             fontStyle = FontStyle(10),
                             fontSize = 23.sp,
+
                         )
                     }
                 }

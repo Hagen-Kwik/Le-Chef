@@ -77,8 +77,9 @@ fun LoginPage (navController: NavController, viewModel: loginScreenViewModel, sh
 
             USERID.setUserId(viewModel.userid)
             COOKIE.setCookie(viewModel.token)
-
+            viewModel.logged.value = false
             navController.navigate(NavigationEnum.botnavbar.name)
+
         }
     }
 

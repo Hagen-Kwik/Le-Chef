@@ -81,50 +81,50 @@ fun MyRecipesScreen(navController: NavHostController = rememberNavController(),
                             color = Color(249, 162, 46)
                         )
 
-                        Row(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(20.dp, 0.dp, 20.dp, 10.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-
-                        ) {
-                            TextField(
-                                modifier = Modifier
-                                    .height(50.dp),
-                                value = searchbar.value,
-                                colors = TextFieldDefaults.textFieldColors(
-                                    backgroundColor = Color.Gray,
-                                    cursorColor = Color.Black,
-                                    focusedIndicatorColor = Color.Transparent,
-                                    unfocusedIndicatorColor = Color.Transparent
-                                ),
-                                shape = RoundedCornerShape(30.dp),
-                                onValueChange = {
-                                    searchbar.value = it
-                                },
-                                trailingIcon = {
-                                    if (searchbar.value.isNotEmpty()) {
-                                        Icon(
-                                            imageVector = Icons.Outlined.Close,
-                                            contentDescription = null,
-                                            modifier = Modifier.clickable {
-                                                searchbar.value = ""
-                                            }
-                                        )
-                                    }
-                                },
-                                placeholder = { Text("Search Here...") }
-                            )
-
-                            Icon(imageVector = Icons.Outlined.Search, contentDescription = null,
-                                modifier = Modifier
-                                    .scale(1.5f)
-                                    .clickable {
-//                searchbar.value =
-                                    }
-                            )
-                        }
+//                        Row(
+//                            modifier = Modifier
+//                                .fillMaxSize()
+//                                .padding(20.dp, 0.dp, 20.dp, 10.dp),
+//                            verticalAlignment = Alignment.CenterVertically,
+//                            horizontalArrangement = Arrangement.SpaceBetween
+//
+//                        ) {
+//                            TextField(
+//                                modifier = Modifier
+//                                    .height(50.dp),
+//                                value = searchbar.value,
+//                                colors = TextFieldDefaults.textFieldColors(
+//                                    backgroundColor = Color.Gray,
+//                                    cursorColor = Color.Black,
+//                                    focusedIndicatorColor = Color.Transparent,
+//                                    unfocusedIndicatorColor = Color.Transparent
+//                                ),
+//                                shape = RoundedCornerShape(30.dp),
+//                                onValueChange = {
+//                                    searchbar.value = it
+//                                },
+//                                trailingIcon = {
+//                                    if (searchbar.value.isNotEmpty()) {
+//                                        Icon(
+//                                            imageVector = Icons.Outlined.Close,
+//                                            contentDescription = null,
+//                                            modifier = Modifier.clickable {
+//                                                searchbar.value = ""
+//                                            }
+//                                        )
+//                                    }
+//                                },
+//                                placeholder = { Text("Search Here...") }
+//                            )
+//
+//                            Icon(imageVector = Icons.Outlined.Search, contentDescription = null,
+//                                modifier = Modifier
+//                                    .scale(1.5f)
+//                                    .clickable {
+////                searchbar.value =
+//                                    }
+//                            )
+//                        }
                     }
 
                 }

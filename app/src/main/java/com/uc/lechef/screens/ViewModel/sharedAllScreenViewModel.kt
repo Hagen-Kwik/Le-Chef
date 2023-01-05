@@ -75,5 +75,10 @@ class sharedAllScreenViewModel @Inject constructor(private val repository: userR
     fun AddSearchRecipe(resep: ResepFromBahanSearch){
         _SearchRecipe.value = resep
     }
+
+
+
+
+
 }
 
