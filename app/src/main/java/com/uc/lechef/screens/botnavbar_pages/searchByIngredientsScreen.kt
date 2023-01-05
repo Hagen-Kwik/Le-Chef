@@ -47,7 +47,7 @@ import com.uc.lechef.screens.ViewModel.sharedAllScreenViewModel
 @Composable
 fun searchByIngredientsScreen(
     navController: NavHostController = rememberNavController(),
-    sharedViewModel: sharedAllScreenViewModel
+    sharedViewModel: sharedAllScreenViewModel,
     SearchByIngredientViewModel: SearchByIngredientsScreenViewModel,
 ) {
     val configuration = LocalConfiguration.current
