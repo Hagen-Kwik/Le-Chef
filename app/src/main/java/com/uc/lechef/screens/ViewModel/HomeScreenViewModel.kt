@@ -25,7 +25,7 @@ class HomeScreenViewModel @Inject constructor(private val repository: userReposi
     private var _vieweddata  = MutableStateFlow(false)
     val vieweddata = _vieweddata
 
-    var  savedrecipe: MutableStateFlow<saved_recipe?> = MutableStateFlow(null)
+    var  savedrecipe: MutableStateFlow<SavedRecipePerUser?> = MutableStateFlow(null)
     var resepSpecific: MutableStateFlow<ResepSpecific?> = MutableStateFlow(null)
 
     fun moveToDetailed(int: Int, COOKIE: Flow<String?>) {

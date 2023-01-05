@@ -25,6 +25,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -121,8 +122,8 @@ fun LikedRecipesScreen(
 //    give items here
         item {
             Column {
-                if(!sharedViewModel.SavedRecipe.value?.Resep!!.isNullOrEmpty()) {
-                    for (item in sharedViewModel.SavedRecipe.value?.Resep!!) {
+                if(sharedViewModel.SavedRecipe.value?.Saved_recipe?.Resep?.isEmpty() == false) {
+                    for (item in sharedViewModel.SavedRecipe.value?.Saved_recipe?.Resep!!) {
                         Card(
                             modifier = Modifier
                                 .padding(10.dp)
@@ -231,7 +232,11 @@ fun LikedRecipesScreen(
                         }
                     }
                 } else {
-                    Text(text = "No liked Recipe")
+                    Text(text = "No liked Recipe",
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .padding(top = 10.dp)
+                            .fillMaxSize())
                 }
             }
         }

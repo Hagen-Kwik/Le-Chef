@@ -18,6 +18,8 @@ fun AppNavigation(sharedViewModel: sharedAllScreenViewModel = androidx.lifecycle
                   UploadRecipeViewModel: UploadRecipeScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
                   MyrecipeViewModel: MyrecipeScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
                   LikedRecipeViewModel: LikedRecipeScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
+                  SearchRecipeViewModel: SearchRecipeScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
+                  SearchByIngredientViewModel : SearchByIngredientsScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
 ) {
 
 
@@ -49,11 +51,11 @@ fun AppNavigation(sharedViewModel: sharedAllScreenViewModel = androidx.lifecycle
         }
 
         composable(NavigationEnum.searchByIngredientsScreen.name){
-            searchByIngredientsScreen(navController, sharedViewModel)
+            searchByIngredientsScreen(navController, sharedViewModel, SearchByIngredientViewModel)
         }
 
         composable(NavigationEnum.searchRecipesScreen.name){
-            searchRecipesScreen(navController, sharedViewModel)
+            searchRecipesScreen(navController, sharedViewModel, SearchRecipeViewModel)
         }
 
         composable(NavigationEnum.DetailedRecipesScreen.name){

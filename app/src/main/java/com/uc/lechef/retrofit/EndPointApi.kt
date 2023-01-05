@@ -27,11 +27,7 @@ interface EndPointApi {
         @Body saved_recipe: createsavedrecipe,
     )
 
-    @GET("/savedrecipe/{id}")
-    suspend fun getsavedbyuser(
-        @Path("id") id: Int,
-        @Header("Cookie") token:String
-    ): retrofit2.Response<saved_recipe>
+
 
     @POST("/login")
     suspend fun login(
@@ -97,7 +93,19 @@ interface EndPointApi {
     suspend fun getUserSavedRecipe(
         @Path("id") id: Int,
         @Header("Cookie") token:String
-    ): retrofit2.Response<SavedRecipe>
+    ): retrofit2.Response<SavedRecipePerUser>
+
+    @GET("/savedrecipe/{id}")
+    suspend fun getsavedbyuser(
+        @Path("id") id: Int,
+        @Header("Cookie") token:String
+    ): retrofit2.Response<SavedRecipePerUser>
+
+    @POST("/resep/bahan/")
+    suspend fun getResepFromBahan(
+        @Header("Cookie") token:String,
+        @Body data: ForUploadToFindingResepWithBahan,
+    ):retrofit2.Response<ResepFromBahanSearch>
 
 //    @POST("/users")
 //    suspend fun postUserData(

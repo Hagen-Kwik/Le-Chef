@@ -57,10 +57,17 @@ class sharedAllScreenViewModel @Inject constructor(private val repository: userR
         _Resepbyuser.value = resep
     }
 
-    private var _SavedRecipe  = MutableStateFlow<SavedRecipe?>(null)
+    private var _SavedRecipe  = MutableStateFlow<SavedRecipePerUser?>(null)
     val SavedRecipe = _SavedRecipe
-    fun addtosaved(SavedRecipe: SavedRecipe){
-        _SavedRecipe.value = SavedRecipe
+    fun addtosaved(saved_recipe: SavedRecipePerUser){
+        _SavedRecipe.value = saved_recipe
+    }
+
+    private var _SearchRecipe  = MutableStateFlow<ResepFromBahanSearch?>(null)
+    val SearchRecipe = _SearchRecipe
+    var SearchRecipeFORCHECK = MutableStateFlow(false)
+    fun AddSearchRecipe(resep: ResepFromBahanSearch){
+        _SearchRecipe.value = resep
     }
 }
 
