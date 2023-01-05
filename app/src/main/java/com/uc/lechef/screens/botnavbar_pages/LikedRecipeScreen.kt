@@ -121,7 +121,7 @@ fun LikedRecipesScreen(
 //    give items here
         item {
             Column {
-                if(sharedViewModel.SavedRecipe.value != null) {
+                if(!sharedViewModel.SavedRecipe.value?.Resep!!.isNullOrEmpty()) {
                     for (item in sharedViewModel.SavedRecipe.value?.Resep!!) {
                         Card(
                             modifier = Modifier
