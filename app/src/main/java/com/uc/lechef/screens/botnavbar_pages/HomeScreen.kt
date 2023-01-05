@@ -174,7 +174,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),
                                 modifier = Modifier
                                     .fillMaxSize()
                                     .clickable {
-
+                                        navController.navigate(NavigationEnum.searchByIngredientsScreen.name)
                                     },
                                 contentAlignment = Alignment.BottomCenter
 
