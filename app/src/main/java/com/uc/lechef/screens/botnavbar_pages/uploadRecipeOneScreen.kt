@@ -209,8 +209,6 @@ fun uploadRecipeOneScreen(navController: NavHostController = rememberNavControll
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(0.dp, 5.dp)
-
-
         )
 
 
