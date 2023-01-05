@@ -35,6 +35,7 @@ import com.uc.lechef.R
 import com.uc.lechef.helper.StoreUserCookie
 import com.uc.lechef.screens.ViewModel.HomeScreenViewModel
 import com.uc.lechef.screens.ViewModel.sharedAllScreenViewModel
+import java.io.ByteArrayOutputStream
 
 
 @SuppressLint("StateFlowValueCalledInComposition")
@@ -181,6 +182,13 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),
                                 val imageData = Base64.decode(item.Foto, Base64.DEFAULT);
 
                                 val bitmap: Bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.size)
+
+//                                val stream = ByteArrayOutputStream()
+//                                bitmap.compress(Bitmap.CompressFormat.PNG,90,stream)
+//                                val tes:ByteArray = stream.toByteArray()
+//
+//                                val bitmap2: Bitmap = BitmapFactory.decodeByteArray(tes, 0, tes.size)
+
 
                                 val imageBitmap: ImageBitmap = bitmap.asImageBitmap()
                                 Image(

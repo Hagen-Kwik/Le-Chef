@@ -40,6 +40,12 @@ class UploadRecipeScreenViewModel @Inject constructor(private val repository: us
          recipe_portion = porsi
     }
 
+    fun addfrompage2(
+        foto: String
+    ){
+        photo = foto
+    }
+
     //FOR RESEP ID HARUS BIKIN RESEP E SEK
     var FORARRAYresepID = -1
 
@@ -65,28 +71,28 @@ class UploadRecipeScreenViewModel @Inject constructor(private val repository: us
                     USERID.collect { id ->
                         if (id != null) {
 
-                            val json = JSONObject()
-                            json.put("Created_by", id.toInt())
-                            json.put("jumlahrating", 0)
-                            json.put("Rating", 0)
-                            json.put("Description", recipe_description)
-                            json.put("Judul", recipe_name)
-                            json.put("Portionsize", recipe_portion)
-                            json.put("Foto", "FOTO")
-                            json.put("Video", "")
-                            json.put("Timetaken", recipe_time_needed)
-                            json.put("Steps", recipe_instructions)
-
-                            val requestBody = json.toString().toRequestBody(mediaType)
-
-                            Log.d("json", json.toString())
-                            Log.d("cookie", cookie)
+//                            val json = JSONObject()
+//                            json.put("Created_by", id.toInt())
+//                            json.put("jumlahrating", 0)
+//                            json.put("Rating", 0)
+//                            json.put("Description", recipe_description)
+//                            json.put("Judul", recipe_name)
+//                            json.put("Portionsize", recipe_portion)
+//                            json.put("Foto", photo)
+//                            json.put("Video", "")
+//                            json.put("Timetaken", recipe_time_needed)
+//                            json.put("Steps", recipe_instructions)
+//
+//                            val requestBody = json.toString().toRequestBody(mediaType)
+//
+//                            Log.d("json", json.toString())
+//                            Log.d("cookie", cookie)
 
 
 
 
                             repository.createResep(cookie, ForMakingRecipe(id.toInt(),
-                                recipe_description,"FOTO",recipe_name,recipe_portion,0,
+                                recipe_description,photo,recipe_name,recipe_portion,0,
                                 recipe_instructions,recipe_time_needed,"",0)
                             ).let { response ->
                                 forIdResep = response.body()?.id ?: -1
